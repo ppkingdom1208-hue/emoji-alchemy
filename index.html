@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Emoji Alchemy OC Project</title>
     <style>
-        /* フォント読み込み */
-        @import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;0,700;0,900;1,400&family=Montserrat:wght@400;700&family=Shippori+Mincho:wght@400;700&display=swap');
+        /* 英語の補助フォントとしてMontserratのみ読み込み */
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
 
-        /* 全体設定 */
+        /* 全体フォント設定：小塚明朝を最優先に */
         body {
             background-color: #000a1a;
             background-image: 
@@ -17,20 +17,21 @@
                 repeating-conic-gradient(from 90deg, rgba(212, 175, 55, 0.01) 0deg 15deg, transparent 15deg 30deg);
             background-size: 100% 100%, 60px 60px, 60px 60px;
             color: #fff;
-            font-family: "Shippori Mincho", "MS PMincho", serif;
+            font-family: "Kozuka Mincho Pro", "Kozuka Mincho Pr6N", "小塚明朝 Pro", "小塚明朝 Pr6N", "Shippori Mincho", "MS PMincho", serif;
             margin: 0; padding: 0; overflow-x: hidden;
         }
 
-        /* オープニング演出：文字サイズを復活 */
+        /* オープニング演出 */
         #loading-screen {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             background-color: #000a1a; z-index: 9999;
-            display: flex; justify-content: center; align-items: center; flex-direction: column;
+            display: flex; justify-content: center; align-items: center;
+            flex-direction: column;
             transition: opacity 1.5s ease;
         }
         .intro-text {
-            font-size: 1.5em; /* 1.2emから1.5emに戻しました */
+            font-size: 1.5em;
             color: #f9f295; letter-spacing: 0.3em;
             opacity: 0; transform: translateY(20px);
             animation: fadeInOut 4s ease forwards;
@@ -45,100 +46,109 @@
 
         #main-content { opacity: 0; transition: opacity 2s ease; }
 
-        /* 装飾の柱 */
         body::before, body::after {
             content: "";
-            position: fixed; top: 0; width: 80px; height: 100%; z-index: 100; pointer-events: none;
+            position: fixed; top: 0; width: 100px; height: 100%; z-index: 100; pointer-events: none;
             background: linear-gradient(90deg, #3a0000 0%, #600000 20%, #3a0000 40%, #600000 60%, #3a0000 80%, #1a0000 100%);
             box-shadow: 0 0 30px rgba(0,0,0,0.8);
         }
         body::before { left: 0; border-right: 2px solid #d4af37; }
         body::after { right: 0; border-left: 2px solid #d4af37; }
 
-        /* スマホレスポンシブ設定：必要な箇所だけ変更 */
-        @media (max-width: 768px) {
-            body::before, body::after { width: 15px; }
-            .wrapper { padding: 60px 25px; }
-            .main-title { font-size: 3.0em !important; letter-spacing: 0.08em !important; }
-            .intro-text { font-size: 1.1em; } /* スマホのみローディングを少し小さく */
-        }
-
-        /* レイアウト */
         .wrapper { max-width: 1000px; margin: 0 auto; padding: 100px 50px; position: relative; z-index: 10; }
         .main-header { text-align: center; margin-bottom: 80px; padding: 20px 0; }
         
         .main-title {
-            font-family: 'Bodoni Moda', serif;
-            font-size: 5.5em; 
-            font-weight: 400; 
-            margin: 0;
-            letter-spacing: 0.12em; 
-            line-height: 1.2; 
-            padding-bottom: 0.1em; 
-            background: linear-gradient(
-                to bottom, 
-                #f9f295 0%, 
-                #e0aa3e 45%, 
-                #b8860b 50%, 
-                #e0aa3e 55%, 
-                #f9f295 100%
-            );
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 4px 4px rgba(0,0,0,0.6));
-            display: inline-block;
+            font-size: 5.5em;
+            font-weight: 700; margin: 0;
+            background: linear-gradient(to bottom, #f9f295 0%, #e0aa3e 50%, #b8860b 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 15px rgba(224, 170, 62, 0.4));
+            letter-spacing: 0.1em; line-height: 1.2;
         }
-
-        .producer-name { 
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1.1em; 
-            color: #d4af37; 
-            margin-top: 5px; 
-            letter-spacing: 0.6em; 
-            text-transform: uppercase;
-            opacity: 0.9;
-        }
-
+        .producer-name { font-size: 1.6em; color: #d4af37; margin-top: 10px; letter-spacing: 0.4em; font-style: italic; }
+        
         .event-schedule { margin-top: 30px; display: inline-block; border-top: 1px solid rgba(212, 175, 55, 0.5); border-bottom: 1px solid rgba(212, 175, 55, 0.5); padding: 12px 40px; }
-        .schedule-title { font-size: 0.8em; letter-spacing: 0.3em; color: #d4af37; margin-bottom: 5px; text-transform: uppercase; }
-        .schedule-dates { font-size: 1.8em; letter-spacing: 0.1em; color: #f9f295; }
+        .schedule-title { font-size: 0.9em; letter-spacing: 0.5em; color: #d4af37; margin-bottom: 5px; text-transform: uppercase; }
+        .schedule-dates { font-size: 1.8em; letter-spacing: 0.1em; color: #f9f295; text-shadow: 0 0 10px rgba(249, 242, 149, 0.3); }
         .day-label { font-size: 0.6em; vertical-align: middle; margin-left: 4px; opacity: 0.8; }
 
-        /* 紹介文セクション：文言の完全復活 */
-        .about-section { text-align: center; margin-bottom: 120px; background: rgba(0, 5, 15, 0.8); border: 1px solid rgba(212, 175, 55, 0.3); padding: 50px 30px; box-shadow: 0 0 40px rgba(0,0,0,1); }
-        .about-title { font-size: 2.2em; color: #f9f295; margin-bottom: 30px; border-bottom: 2px solid #d4af37; padding-bottom: 10px; display: inline-block; }
-        .about-text { font-size: 1.1em; line-height: 2.4; color: #e8e8e8; }
+        .about-section { text-align: center; margin-bottom: 120px; background: rgba(0, 0, 0, 0.6); border: 1px solid rgba(212, 175, 55, 0.3); padding: 50px; box-shadow: 0 0 40px rgba(0,0,0,1); }
+        .about-title { font-size: 2.4em; color: #f9f295; margin-bottom: 30px; letter-spacing: 0.1em; display: inline-block; border-bottom: 2px solid #d4af37; padding-bottom: 10px; }
+        .about-text { font-size: 1.15em; line-height: 2.4; color: #e8e8e8; }
+        .section-divider { text-align: center; font-size: 3em; color: #d4af37; margin-bottom: 60px; letter-spacing: 0.3em; }
 
-        .section-divider { text-align: center; font-size: 2.6em; color: #d4af37; margin-top: 80px; margin-bottom: 60px; letter-spacing: 0.3em; }
-
-        .teams-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; }
-        .team-card { background: rgba(0, 5, 15, 0.95); border: 1px solid #d4af37; padding: 30px 20px; text-align: center; transition: 0.3s; }
-        .team-title { font-size: 2.8em; color: #f9f295; margin-bottom: 5px; }
-        .emoji-slot { font-size: 1.3em; color: rgba(212, 175, 55, 0.8); margin-bottom: 25px; }
+        .teams-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 40px; }
+        .team-card { background: rgba(0, 5, 15, 0.9); border: 1px solid #d4af37; padding: 30px 20px; text-align: center; position: relative; box-shadow: inset 0 0 20px rgba(212, 175, 55, 0.1); transition: 0.3s ease; }
+        .team-card:hover { transform: translateY(-8px); border-color: #f9f295; }
+        .team-title { font-size: 2.5em; color: #f9f295; margin-bottom: 10px; font-weight: 700; letter-spacing: 0.1em; } 
+        .emoji-slot { font-size: 1.4em; color: rgba(212, 175, 55, 0.8); margin-bottom: 25px; letter-spacing: 0.5em; }
         .member-list { list-style: none; padding: 0; margin: 0; }
         .member-item { margin: 12px 0; }
-        .member-link { color: #fff; text-decoration: none; font-size: 1.1em; transition: 0.3s; }
+        .member-link { color: #fff; text-decoration: none; font-size: 1.1em; transition: 0.3s; display: inline-block; }
         .member-link:hover { color: #f9f295; text-shadow: 0 0 10px #f9f295; }
 
-        /* 提出セクション：文言の復活 */
-        .submit-section { text-align: center; margin-top: 100px; padding-bottom: 80px; }
-        .submit-button { display: inline-block; padding: 20px 60px; border: 2px solid #d4af37; color: #f9f295; text-decoration: none; font-size: 1.4em; letter-spacing: 0.3em; transition: 0.4s; background: rgba(212, 175, 55, 0.05); }
-        .submit-button:hover { background: rgba(212, 175, 55, 0.2); transform: scale(1.05); box-shadow: 0 0 30px rgba(212, 175, 55, 0.3); }
+        .submit-section { text-align: center; margin-top: 100px; padding-bottom: 50px; }
+        .submit-button {
+            display: inline-block; padding: 20px 60px; border: 2px solid #d4af37; color: #f9f295; text-decoration: none; font-size: 1.5em; letter-spacing: 0.3em; transition: all 0.4s ease;
+            background: rgba(212, 175, 55, 0.05); position: relative; overflow: hidden;
+        }
+        .submit-button:hover { background: rgba(212, 175, 55, 0.2); box-shadow: 0 0 30px rgba(212, 175, 55, 0.3); transform: scale(1.05); color: #fff; }
 
-        .reveal { opacity: 0; transform: translateY(30px); transition: 1.2s ease; }
-        .reveal.active { opacity: 1; transform: translateY(0); }
+        /* --- スマートフォン用スタイリッシュ調整（1行表示対応） --- */
+        @media screen and (max-width: 768px) {
+            body::before, body::after { width: 10px; } /* カーテンを更に細くして幅を確保 */
+            .wrapper { padding: 40px 15px; }
+            
+            /* メインタイトルを1行にする調整 */
+            .main-title { 
+                font-size: 1.8em; 
+                white-space: nowrap; /* 改行禁止 */
+                letter-spacing: 0.05em; 
+            }
+            .main-title br { display: none; } /* HTML内のbrタグを無視する */
+            
+            .producer-name { font-size: 0.9em; letter-spacing: 0.1em; }
+
+            /* 開催日を1行にする調整 */
+            .event-schedule { padding: 10px 10px; width: 90%; }
+            .schedule-dates { 
+                font-size: 0.85em; /* 1行に収まるサイズ */
+                white-space: nowrap; 
+                letter-spacing: 0;
+            }
+            .day-label { font-size: 0.5em; margin-left: 2px; }
+
+            /* 説明文（メイン）の調整 */
+            .about-section { padding: 25px 15px; margin-bottom: 50px; }
+            .about-title { font-size: 1.1em; white-space: nowrap; }
+            .about-text { 
+                font-size: 0.85em; 
+                line-height: 2.0; 
+            }
+
+            /* 提出セクションの文言を1行にする調整 */
+            .submit-section .about-text {
+                font-size: 0.85em;
+                white-space: nowrap; /* 1行で表示 */
+                letter-spacing: -0.02em; /* わずかに字間を詰めて収める */
+            }
+
+            .section-divider { font-size: 1.5em; margin-bottom: 30px; }
+            .submit-button { padding: 12px 25px; font-size: 1.0em; letter-spacing: 0.1em; }
+        }
     </style>
 </head>
 <body>
 
 <div id="loading-screen">
-    <div class="intro-text">― 運命を、練り上げろ。</div>
+    <div class="intro-text">―― 運命を、練り上げろ。</div>
 </div>
 
 <div id="main-content">
     <div class="wrapper">
         <header class="main-header">
-            <h1 class="main-title">Emoji Alchemy<br>OC Project</h1>
+            <h1 class="main-title">EMOJI ALCHEMY<br>OC PROJECT</h1>
             <div class="producer-name">Produce by nico oji</div>
             <div class="event-schedule">
                 <div class="schedule-title">Event Schedule</div>
@@ -146,21 +156,15 @@
             </div>
         </header>
 
-        <section class="about-section reveal">
+        <section class="about-section">
             <h2 class="about-title">What's Emoji Alchemy OC Project?</h2>
-            <p class="about-text">
-                ――それは、偶然から魂を練り上げる禁忌の錬金術。<br>
-                ランダムに選ばれた「絵文字」という名の素材を元に、<br>
-                創造主たちが全く新しい「オリジナルキャラクター」を錬成する企画です。<br>
-                運命が導いたシンボルから、一体どのような物語が産声を上げるのか。<br>
-                至高のクリエイティビティが今、ここに集います。
-            </p>
+            <p class="about-text">――それは、偶然から魂を練り上げる禁忌の錬金術。<br>ランダムに選ばれた「絵文字」という名の素材を元に、<br>創造主たちが全く新しい「オリジナルキャラクター」を錬成する企画です。<br>運命が導いたシンボルから、一体どのような物語が産声を上げるのか。<br>至高のクリエイティビティが今、ここに集います。</p>
         </section>
 
-        <div class="section-divider reveal">ENTRY TEAM</div>
+        <div class="section-divider">ENTRY TEAM</div>
         <div id="teams-display" class="teams-container"></div>
 
-        <section class="submit-section reveal">
+        <section class="submit-section">
             <div class="section-divider">SUBMISSION</div>
             <p class="about-text" style="margin-bottom: 40px;">錬成した作品の提出は、下記のボタンよりお願いいたします。</p>
             <a href="https://forms.gle/XytXPo531mky9QZh7" target="_blank" class="submit-button">SUBMIT WORK</a>
@@ -169,68 +173,59 @@
 </div>
 
 <script>
-// (以下、メンバーデータ部分は変更なしのため維持)
-document.addEventListener('DOMContentLoaded', function() {
+window.onload = function() {
     const loadingScreen = document.getElementById('loading-screen');
     const mainContent = document.getElementById('main-content');
-    const teamsDisplay = document.getElementById('teams-display');
-
     setTimeout(() => {
         loadingScreen.style.opacity = '0';
         mainContent.style.opacity = '1';
-        setTimeout(() => { 
-            loadingScreen.style.display = 'none'; 
-            initScrollReveal();
-        }, 1500);
+        setTimeout(() => { loadingScreen.style.display = 'none'; }, 1500);
     }, 4500);
+};
 
-    const rawData = [
-        {n: "ショコラ", id: "chocola0406"}, {n: "ひこよ", id: "6_hikoyo_25"}, {n: "ロペコ", id: "ropecocco"}, {n: "たむお", id: "_tmo_tm"}, {n: "ラー油", id: "2jiha117"},
-        {n: "ヨイチ", id: "MonMonToMonMon"}, {n: "やっほ", id: "papa_ra_zzi"}, {n: "ハムカツ", id: "yam34322"}, {n: "ハロカツ", id: "Tugumogami99"}, {n: "Dina(Alia)", id: "oc_create"},
-        {n: "藤原ノとまと", id: "FJ_to_ma_to_WR"}, {n: "たいやきぃ", id: "taikichitaiyaki"}, {n: "いんしゅ", id: "SAKEKASUSOS"}, {n: "アケチコゴロウ", id: "hcSUZdHq7099054"}, {n: "桜餅柏餅", id: "4GnXnUbfv971835"},
-        {n: "ルルナ", id: "ruruna_o0___"}, {n: "かがみ", id: "kagami_mirror_5"}, {n: "空白", id: "kurokuteuzai"}, {n: "雨影霧藺", id: "Amkg_Mui_"}, {n: "ヒツギ", id: "25ndeya6u"},
-        {n: "る", id: "UKSBHvP8QF52931"}, {n: "ぐろる", id: "guroru_shark"}, {n: "un°", id: "und_hz"}, {n: "あかぎ", id: "akagi4123"}, {n: "雨", id: "sabLeye110"},
-        {n: "troiqu", id: "troiqu_"}, {n: "雨降ソル", id: "Amefurisol0524"}, {n: "しゅりんぷ丸", id: "shrimpmaru_"}, {n: "シュトラス", id: "shutoras1209"}, {n: "熊大陸", id: "kumatairiku2go"},
-        {n: "秋雨（桃）", id: "akisam222"}, {n: "えのき", id: "enoki_kikurage"}, {n: "ﾘﾝ🔔", id: "asaruhi_"}, {n: "ささみ", id: "sasami_okaki"}, {n: "カンヅメ", id: "Kandume_dume"},
-        {n: "コンペイトト", id: "konnpei10usagi3"}, {n: "ドラの風ﾐﾉﾗ", id: "Dorano-25"}, {n: "らいむぎ", id: "lime_gi_"}, {n: "まめ⁵‼️", id: "XHTqMFo6Us42758"}, {n: "えぞれんげ", id: "seiya712"},
-        {n: "マメフ", id: "mamefu01050810"}, {n: "ばんちょ", id: "akasabi_94"}, {n: "けんけん", id: "Kenkendesuuuuu"}, {n: "ラブアンドピースななよ", id: "mio.1786559"}, {n: "へんなやぁーつ", id: "Aogamisama"},
-        {n: "あんこ", id: "zz81609"}, {n: "庭鳥さんぽ", id: "ottosuki35640"}, {n: "八雲L", id: "Lsun8659741"}, {n: "カラ坊", id: "9Zjj8OPEd"}, {n: "あざみ", id: "Azami_azamia"},
-        {n: "夜狐", id: "yako_819"}, {n: "nagi", id: "nagi81585613"}, {n: "チャックニコルトン", id: "anori0_0"}, {n: "小舟", id: "tinyship_o"}, {n: "鳥子", id: "yama_mugi"},
-        {n: "みや", id: "gggggggg_miya"}, {n: "まやとぎ", id: "mytg_s"}, {n: "山田。", id: "yamada_hzbn"}, {n: "雨蛙", id: "Kawazu_1026"}, {n: "羽月", id: "hazuki0109"},
-        {n: "うさ", id: "inaba_UsAsU"}, {n: "タケノコの里", id: "taikoubou06"}, {n: "黒狛", id: "kuraha_50"}, {n: "鋼", id: "hgn__0121"}, {n: "やつか", id: "yatsuka834"},
-        {n: "komayu_M.M", id: "MKomayu321"}, {n: "マジシャンズ列島", id: "3CQe1cadQBWtQ56"}, {n: "あひる", id: "minikuiahirunoko"}, {n: "293", id: "293_wada"}, {n: "Na", id: "Na1945A"},
-        {n: "ごーちゃん", id: "godesuwayo"}, {n: "おたんこ茄子", id: "nako_piyo"}, {n: "ウルフ", id: "Cxb6shCK5f2"}, {n: "maccham", id: "chamti3e"}, {n: "ねこまるさん", id: "haxuzak_V"},
-        {n: "ブルー･スター", id: "aohosi44"}, {n: "三色団子", id: "h08kb74aBz89978"}, {n: "ホッソリ紅", id: "0FmkiBuu23477"}, {n: "ひよこ", id: "oe67353"}, {n: "ミツ", id: "tbhp_mitsu"},
-        {n: "さいとうさとう", id: "saitou_satou"}, {n: "らびぃ", id: "amuamuaimuu"}, {n: "みかど", id: "rnkn_atiti05"}, {n: "ゆきだま", id: "YUK1_DAMA"}
-    ];
+const rawData = [
+    {n: "ショコラ", id: "chocola0406"}, {n: "ひこよ", id: "6_hikoyo_25"}, {n: "ロペコ", id: "ropecocco"}, {n: "たむお", id: "_tmo_tm"}, {n: "ラー油", id: "2jiha117"},
+    {n: "ヨイチ", id: "MonMonToMonMon"}, {n: "やっほ", id: "papa_ra_zzi"}, {n: "ハムカツ", id: "yam34322"}, {n: "ハロカツ", id: "Tugumogami99"}, {n: "Dina(Alia)", id: "oc_create"},
+    {n: "藤原ノとまと", id: "FJ_to_ma_to_WR"}, {n: "たいやきぃ", id: "taikichitaiyaki"}, {n: "いんしゅ", id: "SAKEKASUSOS"}, {n: "アケチコゴロウ", id: "hcSUZdHq7099054"}, {n: "桜餅柏餅", id: "4GnXnUbfv971835"},
+    {n: "ルルナ", id: "ruruna_o0___"}, {n: "かがみ", id: "kagami_mirror_5"}, {n: "空白", id: "kurokuteuzai"}, {n: "雨影霧藺", id: "Amkg_Mui_"}, {n: "ヒツギ", id: "25ndeya6u"},
+    {n: "る", id: "UKSBHvP8QF52931"}, {n: "ぐろる", id: "guroru_shark"}, {n: "un°", id: "und_hz"}, {n: "あかぎ", id: "akagi4123"}, {n: "雨", id: "sabLeye110"},
+    {n: "troiqu", id: "troiqu_"}, {n: "雨降ソル", id: "Amefurisol0524"}, {n: "しゅりんぷ丸", id: "shrimpmaru_"}, {n: "シュトラス", id: "shutoras1209"}, {n: "熊大陸", id: "kumatairiku2go"},
+    {n: "秋雨（桃）", id: "akisam222"}, {n: "えのき", id: "enoki_kikurage"}, {n: "ﾘﾝ🔔", id: "asaruhi_"}, {n: "ささみ", id: "sasami_okaki"}, {n: "カンヅメ", id: "Kandume_dume"},
+    {n: "コンペイトト", id: "konnpei10usagi3"}, {n: "ドラの風ﾐﾉﾗ", id: "Dorano-25"}, {n: "らいむぎ", id: "lime_gi_"}, {n: "まめ⁵‼️", id: "XHTqMFo6Us42758"}, {n: "えぞれんげ", id: "seiya712"},
+    {n: "マメフ", id: "mamefu01050810"}, {n: "ばんちょ", id: "akasabi_94"}, {n: "けんけん", id: "Kenkendesuuuuu"}, {n: "ラブアンドピースななよ", id: "mio.1786559"}, {n: "へんなやぁーつ", id: "Aogamisama"},
+    {n: "あんこ", id: "zz81609"}, {n: "庭鳥さんぽ", id: "ottosuki35640"}, {n: "八雲L", id: "Lsun8659741"}, {n: "カラ坊", id: "9Zjj8OPEd"}, {n: "あざみ", id: "Azami_azamia"},
+    {n: "夜狐", id: "yako_819"}, {n: "nagi", id: "nagi81585613"}, {n: "チャックニコルトン", id: "anori0_0"}, {n: "小舟", id: "tinyship_o"}, {n: "鳥子", id: "yama_mugi"},
+    {n: "みや", id: "gggggggg_miya"}, {n: "まやとぎ", id: "mytg_s"}, {n: "山田。", id: "yamada_hzbn"}, {n: "雨蛙", id: "Kawazu_1026"}, {n: "羽月", id: "hazuki0109"},
+    {n: "うさ", id: "inaba_UsAsU"}, {n: "タケノコの里", id: "taikoubou06"}, {n: "黒狛", id: "kuraha_50"}, {n: "鋼", id: "hgn__0121"}, {n: "やつか", id: "yatsuka834"},
+    {n: "komayu_M.M", id: "MKomayu321"}, {n: "マジシャンズ列島", id: "3CQe1cadQBWtQ56"}, {n: "あひる", id: "minikuiahirunoko"}, {n: "293", id: "293_wada"}, {n: "Na", id: "Na1945A"},
+    {n: "ごーちゃん", id: "godesuwayo"}, {n: "おたんこ茄子", id: "nako_piyo"}, {n: "ウルフ", id: "Cxb6shCK5f2"}, {n: "maccham", id: "chamti3e"}, {n: "ねこまるさん", id: "haxuzak_V"},
+    {n: "ブルー･スター", id: "aohosi44"}, {n: "三色団子", id: "h08kb74aBz89978"}, {n: "ホッソリ紅", id: "0FmkiBuu23477"}, {n: "ひよこ", id: "oe67353"}, {n: "ミツ", id: "tbhp_mitsu"},
+    {n: "さいとうさとう", id: "saitou_satou"}, {n: "らびぃ", id: "amuamuaimuu"}, {n: "みかど", id: "rnkn_atiti05"}, {n: "ゆきだま", id: "YUK1_DAMA"}
+];
 
-    const teamNames = ["天", "空", "海", "森", "花", "雫", "焔", "凪", "光", "影", "時", "道", "彩", "結", "和"];
-    const teamCount = 15;
+const teamNames = ["天", "空", "海", "森", "花", "雫", "焔", "凪", "光", "影", "時", "道", "彩", "結", "和"];
+const teamCount = 15;
+const teamsDisplay = document.getElementById('teams-display');
 
-    for (let i = 0; i < teamCount; i++) {
-        const teamDiv = document.createElement('div');
-        teamDiv.className = 'team-card reveal';
-        teamDiv.innerHTML = `<div class="team-title">${teamNames[i]}</div><div class="emoji-slot">□□□</div>`;
-        const list = document.createElement('ul');
-        list.className = 'member-list';
-        rawData.filter((_, index) => index % teamCount === i).forEach(member => {
-            const li = document.createElement('li');
-            li.className = 'member-item';
-            const cleanId = member.id.replace('from:', '').replace(/[＠@]/, '').split(' ')[0].trim();
-            li.innerHTML = `<a href="https://x.com/${cleanId}" target="_blank" class="member-link">${member.n}</a>`;
-            list.appendChild(li);
-        });
-        teamDiv.appendChild(list);
-        teamsDisplay.appendChild(teamDiv);
-    }
-
-    function initScrollReveal() {
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
-        }, { threshold: 0.1 });
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-    }
-});
+for (let i = 0; i < teamCount; i++) {
+    const teamDiv = document.createElement('div');
+    teamDiv.className = 'team-card';
+    teamDiv.innerHTML = `
+        <div class="team-title">${teamNames[i]}</div>
+        <div class="emoji-slot">□□□</div>
+    `;
+    const list = document.createElement('ul');
+    list.className = 'member-list';
+    rawData.filter((_, index) => index % teamCount === i).forEach(member => {
+        const li = document.createElement('li');
+        li.className = 'member-item';
+        const cleanId = member.id.replace('from:', '').replace(/[＠@]/, '').split(' ')[0].trim();
+        li.innerHTML = `<a href="https://x.com/${cleanId}" target="_blank" class="member-link">${member.n}</a>`;
+        list.appendChild(li);
+    });
+    teamDiv.appendChild(list);
+    teamsDisplay.appendChild(teamDiv);
+}
 </script>
 </body>
 </html>
