@@ -8,132 +8,133 @@
         /* 英語の補助フォントとしてMontserratのみ読み込み */
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
 
-        /* 全体フォント設定：小塚明朝を最優先に */
+        [cite_start]/* 全体フォント設定：小塚明朝を最優先に [cite: 2] */
         body {
-            background-color: #000a1a;
+            [cite_start]background-color: #000a1a; [cite: 2]
             background-image: 
                 radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.05) 0%, transparent 80%),
                 repeating-conic-gradient(from 0deg, rgba(212, 175, 55, 0.02) 0deg 15deg, transparent 15deg 30deg),
-                repeating-conic-gradient(from 90deg, rgba(212, 175, 55, 0.01) 0deg 15deg, transparent 15deg 30deg);
-            background-size: 100% 100%, 60px 60px, 60px 60px;
-            color: #fff;
-            font-family: "Kozuka Mincho Pro", "Kozuka Mincho Pr6N", "小塚明朝 Pro", "小塚明朝 Pr6N", "Shippori Mincho", "MS PMincho", serif;
-            margin: 0; padding: 0; overflow-x: hidden;
+                [cite_start]repeating-conic-gradient(from 90deg, rgba(212, 175, 55, 0.01) 0deg 15deg, transparent 15deg 30deg); [cite: 3]
+            [cite_start]background-size: 100% 100%, 60px 60px, 60px 60px; [cite: 4]
+            [cite_start]color: #fff; [cite: 4]
+            [cite_start]font-family: "Kozuka Mincho Pro", "Kozuka Mincho Pr6N", "小塚明朝 Pro", "小塚明朝 Pr6N", "Shippori Mincho", "MS PMincho", serif; [cite: 4]
+            [cite_start]margin: 0; padding: 0; overflow-x: hidden; [cite: 5]
         }
 
-        /* オープニング演出 */
+        [cite_start]/* オープニング演出 [cite: 5] */
         #loading-screen {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-color: #000a1a; z-index: 9999;
-            display: flex; justify-content: center; align-items: center;
-            flex-direction: column;
-            transition: opacity 1.5s ease;
+            [cite_start]position: fixed; [cite: 5]
+            [cite_start]top: 0; left: 0; width: 100%; height: 100%; [cite: 6]
+            [cite_start]background-color: #000a1a; z-index: 9999; [cite: 6]
+            [cite_start]display: flex; justify-content: center; align-items: center; flex-direction: column; [cite: 6]
+            [cite_start]transition: opacity 1.5s ease; [cite: 7]
         }
         .intro-text {
-            font-size: 1.5em;
-            color: #f9f295; letter-spacing: 0.3em;
-            opacity: 0; transform: translateY(20px);
-            animation: fadeInOut 4s ease forwards;
-            text-align: center; line-height: 2;
+            [cite_start]font-size: 1.5em; [cite: 7]
+            [cite_start]color: #f9f295; letter-spacing: 0.3em; [cite: 8]
+            [cite_start]opacity: 0; transform: translateY(20px); [cite: 8]
+            [cite_start]animation: fadeInOut 4s ease forwards; [cite: 8]
+            [cite_start]text-align: center; line-height: 2; [cite: 8]
         }
         @keyframes fadeInOut {
-            0% { opacity: 0; transform: translateY(20px); filter: blur(10px); }
-            30% { opacity: 1; transform: translateY(0); filter: blur(0); }
-            70% { opacity: 1; transform: translateY(0); filter: blur(0); }
-            100% { opacity: 0; transform: translateY(-20px); filter: blur(10px); }
+            0% { opacity: 0; transform: translateY(20px); filter: blur(10px); [cite_start]} [cite: 9, 10]
+            30% { opacity: 1; transform: translateY(0); filter: blur(0); [cite_start]} [cite: 10, 11]
+            70% { opacity: 1; transform: translateY(0); filter: blur(0); [cite_start]} [cite: 11, 12]
+            100% { opacity: 0; transform: translateY(-20px); filter: blur(10px); [cite_start]} [cite: 12, 13]
         }
 
-        #main-content { opacity: 0; transition: opacity 2s ease; }
+        #main-content { opacity: 0; transition: opacity 2s ease; [cite_start]} [cite: 13, 14]
 
         body::before, body::after {
-            content: "";
-            position: fixed; top: 0; width: 100px; height: 100%; z-index: 100; pointer-events: none;
-            background: linear-gradient(90deg, #3a0000 0%, #600000 20%, #3a0000 40%, #600000 60%, #3a0000 80%, #1a0000 100%);
-            box-shadow: 0 0 30px rgba(0,0,0,0.8);
+            [cite_start]content: ""; [cite: 14]
+            [cite_start]position: fixed; top: 0; width: 100px; height: 100%; z-index: 100; pointer-events: none; [cite: 15]
+            [cite_start]background: linear-gradient(90deg, #3a0000 0%, #600000 20%, #3a0000 40%, #600000 60%, #3a0000 80%, #1a0000 100%); [cite: 16]
+            [cite_start]box-shadow: 0 0 30px rgba(0,0,0,0.8); [cite: 16]
         }
-        body::before { left: 0; border-right: 2px solid #d4af37; }
-        body::after { right: 0; border-left: 2px solid #d4af37; }
+        body::before { left: 0; border-right: 2px solid #d4af37; [cite_start]} [cite: 17]
+        body::after { right: 0; border-left: 2px solid #d4af37; [cite_start]} [cite: 18]
 
-        .wrapper { max-width: 1000px; margin: 0 auto; padding: 100px 50px; position: relative; z-index: 10; }
-        .main-header { text-align: center; margin-bottom: 80px; padding: 20px 0; }
+        .wrapper { max-width: 1000px; margin: 0 auto; padding: 100px 50px; position: relative; z-index: 10; [cite_start]} [cite: 19, 20]
+        .main-header { text-align: center; margin-bottom: 80px; padding: 20px 0; [cite_start]} [cite: 20, 21]
         
         .main-title {
-            font-size: 5.5em;
-            font-weight: 700; margin: 0;
-            background: linear-gradient(to bottom, #f9f295 0%, #e0aa3e 50%, #b8860b 100%);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 15px rgba(224, 170, 62, 0.4));
-            letter-spacing: 0.1em; line-height: 1.2;
+            [cite_start]font-size: 5.5em; [cite: 21]
+            [cite_start]font-weight: 700; margin: 0; [cite: 22]
+            [cite_start]background: linear-gradient(to bottom, #f9f295 0%, #e0aa3e 50%, #b8860b 100%); [cite: 22]
+            -webkit-background-clip: text; [cite_start]-webkit-text-fill-color: transparent; [cite: 22]
+            [cite_start]filter: drop-shadow(0 0 15px rgba(224, 170, 62, 0.4)); [cite: 23]
+            [cite_start]letter-spacing: 0.1em; line-height: 1.2; [cite: 23]
         }
-        .producer-name { font-size: 1.6em; color: #d4af37; margin-top: 10px; letter-spacing: 0.4em; font-style: italic; }
+        .producer-name { font-size: 1.6em; color: #d4af37; margin-top: 10px; letter-spacing: 0.4em; font-style: italic; [cite_start]} [cite: 24]
         
-        .event-schedule { margin-top: 30px; display: inline-block; border-top: 1px solid rgba(212, 175, 55, 0.5); border-bottom: 1px solid rgba(212, 175, 55, 0.5); padding: 12px 40px; }
-        .schedule-title { font-size: 0.9em; letter-spacing: 0.5em; color: #d4af37; margin-bottom: 5px; text-transform: uppercase; }
-        .schedule-dates { font-size: 1.8em; letter-spacing: 0.1em; color: #f9f295; text-shadow: 0 0 10px rgba(249, 242, 149, 0.3); }
-        .day-label { font-size: 0.6em; vertical-align: middle; margin-left: 4px; opacity: 0.8; }
+        .event-schedule { margin-top: 30px; display: inline-block; border-top: 1px solid rgba(212, 175, 55, 0.5); border-bottom: 1px solid rgba(212, 175, 55, 0.5); padding: 12px 40px; [cite_start]} [cite: 25, 26]
+        .schedule-title { font-size: 0.9em; letter-spacing: 0.5em; color: #d4af37; margin-bottom: 5px; text-transform: uppercase; [cite_start]} [cite: 27]
+        .schedule-dates { font-size: 1.8em; letter-spacing: 0.1em; color: #f9f295; text-shadow: 0 0 10px rgba(249, 242, 149, 0.3); [cite_start]} [cite: 28, 29]
+        .day-label { font-size: 0.6em; vertical-align: middle; margin-left: 4px; opacity: 0.8; [cite_start]} [cite: 29, 30]
 
-        .about-section { text-align: center; margin-bottom: 120px; background: rgba(0, 0, 0, 0.6); border: 1px solid rgba(212, 175, 55, 0.3); padding: 50px; box-shadow: 0 0 40px rgba(0,0,0,1); }
-        .about-title { font-size: 2.4em; color: #f9f295; margin-bottom: 30px; letter-spacing: 0.1em; display: inline-block; border-bottom: 2px solid #d4af37; padding-bottom: 10px; }
-        .about-text { font-size: 1.15em; line-height: 2.4; color: #e8e8e8; }
-        .section-divider { text-align: center; font-size: 3em; color: #d4af37; margin-bottom: 60px; letter-spacing: 0.3em; }
+        .about-section { text-align: center; margin-bottom: 120px; background: rgba(0, 0, 0, 0.6); border: 1px solid rgba(212, 175, 55, 0.3); padding: 50px; box-shadow: 0 0 40px rgba(0,0,0,1); [cite_start]} [cite: 30, 31]
+        .about-title { font-size: 2.4em; color: #f9f295; margin-bottom: 30px; letter-spacing: 0.1em; display: inline-block; border-bottom: 2px solid #d4af37; padding-bottom: 10px; [cite_start]} [cite: 32, 33]
+        .about-text { font-size: 1.15em; line-height: 2.4; color: #e8e8e8; [cite_start]} [cite: 33, 34]
+        .section-divider { text-align: center; font-size: 3em; color: #d4af37; margin-bottom: 60px; letter-spacing: 0.3em; [cite_start]} [cite: 34, 35]
 
-        .teams-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 40px; }
-        .team-card { background: rgba(0, 5, 15, 0.9); border: 1px solid #d4af37; padding: 30px 20px; text-align: center; position: relative; box-shadow: inset 0 0 20px rgba(212, 175, 55, 0.1); transition: 0.3s ease; }
-        .team-card:hover { transform: translateY(-8px); border-color: #f9f295; }
+        .teams-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 40px; [cite_start]} [cite: 35, 36]
+        .team-card { background: rgba(0, 5, 15, 0.9); border: 1px solid #d4af37; padding: 30px 20px; text-align: center; position: relative; box-shadow: inset 0 0 20px rgba(212, 175, 55, 0.1); transition: 0.3s ease; [cite_start]} [cite: 36, 37]
+        .team-card:hover { transform: translateY(-8px); border-color: #f9f295; [cite_start]} [cite: 38, 39]
         .team-title { font-size: 2.5em; color: #f9f295; margin-bottom: 10px; font-weight: 700; letter-spacing: 0.1em; } 
-        .emoji-slot { font-size: 1.4em; color: rgba(212, 175, 55, 0.8); margin-bottom: 25px; letter-spacing: 0.5em; }
-        .member-list { list-style: none; padding: 0; margin: 0; }
-        .member-item { margin: 12px 0; }
-        .member-link { color: #fff; text-decoration: none; font-size: 1.1em; transition: 0.3s; display: inline-block; }
-        .member-link:hover { color: #f9f295; text-shadow: 0 0 10px #f9f295; }
+        .emoji-slot { font-size: 1.4em; color: rgba(212, 175, 55, 0.8); margin-bottom: 25px; letter-spacing: 0.5em; [cite_start]} [cite: 40, 41]
+        .member-list { list-style: none; padding: 0; margin: 0; [cite_start]} [cite: 41, 42]
+        .member-item { margin: 12px 0; [cite_start]} [cite: 42, 43]
+        .member-link { color: #fff; text-decoration: none; font-size: 1.1em; transition: 0.3s; display: inline-block; [cite_start]} [cite: 43, 44]
+        .member-link:hover { color: #f9f295; text-shadow: 0 0 10px #f9f295; [cite_start]} [cite: 44, 45]
 
-        .submit-section { text-align: center; margin-top: 100px; padding-bottom: 50px; }
+        .submit-section { text-align: center; margin-top: 100px; padding-bottom: 50px; [cite_start]} [cite: 46]
         .submit-button {
             display: inline-block; padding: 20px 60px; border: 2px solid #d4af37; color: #f9f295; text-decoration: none; font-size: 1.5em; letter-spacing: 0.3em; transition: all 0.4s ease;
-            background: rgba(212, 175, 55, 0.05); position: relative; overflow: hidden;
+            [cite_start]background: rgba(212, 175, 55, 0.05); position: relative; overflow: hidden; [cite: 47, 48]
         }
-        .submit-button:hover { background: rgba(212, 175, 55, 0.2); box-shadow: 0 0 30px rgba(212, 175, 55, 0.3); transform: scale(1.05); color: #fff; }
+        .submit-button:hover { background: rgba(212, 175, 55, 0.2); box-shadow: 0 0 30px rgba(212, 175, 55, 0.3); transform: scale(1.05); color: #fff; [cite_start]} [cite: 49, 50]
 
-        /* --- スマートフォン用スタイリッシュ調整（1行表示対応） --- */
+        /* --- スマートフォン用スタイリッシュ調整（修正版） --- */
         @media screen and (max-width: 768px) {
-            body::before, body::after { width: 10px; } /* カーテンを更に細くして幅を確保 */
+            body::before, body::after { width: 10px; }
             .wrapper { padding: 40px 15px; }
             
-            /* メインタイトルを1行にする調整 */
+            /* タイトル：1行に収めるための再計算 */
             .main-title { 
-                font-size: 1.8em; 
-                white-space: nowrap; /* 改行禁止 */
-                letter-spacing: 0.05em; 
-            }
-            .main-title br { display: none; } /* HTML内のbrタグを無視する */
-            
-            .producer-name { font-size: 0.9em; letter-spacing: 0.1em; }
-
-            /* 開催日を1行にする調整 */
-            .event-schedule { padding: 10px 10px; width: 90%; }
-            .schedule-dates { 
-                font-size: 0.85em; /* 1行に収まるサイズ */
+                font-size: 6.2vw; /* 画面幅に応じて可変 */
                 white-space: nowrap; 
-                letter-spacing: 0;
+                letter-spacing: 0.02em; 
+                margin: 0 auto;
+                width: fit-content;
             }
-            .day-label { font-size: 0.5em; margin-left: 2px; }
+            .main-title br { display: none; }
+            
+            /* プロデューサー名：タイトルの幅に合わせる */
+            .producer-name { 
+                font-size: 3.5vw; 
+                letter-spacing: 0.15em; 
+                margin-top: 5px;
+            }
 
-            /* 説明文（メイン）の調整 */
+            /* 開催日：さらにコンパクトに1行化 */
+            .event-schedule { 
+                padding: 8px 10px; 
+                width: 85%; 
+                margin-top: 20px;
+            }
+            .schedule-title { font-size: 0.7em; letter-spacing: 0.3em; }
+            .schedule-dates { 
+                font-size: 4.2vw; 
+                white-space: nowrap; 
+                letter-spacing: 0.05em;
+            }
+            .day-label { font-size: 0.5em; margin-left: 1px; }
+
+            /* 以下、完璧だった部分を継承 */
             .about-section { padding: 25px 15px; margin-bottom: 50px; }
             .about-title { font-size: 1.1em; white-space: nowrap; }
-            .about-text { 
-                font-size: 0.85em; 
-                line-height: 2.0; 
-            }
-
-            /* 提出セクションの文言を1行にする調整 */
-            .submit-section .about-text {
-                font-size: 0.85em;
-                white-space: nowrap; /* 1行で表示 */
-                letter-spacing: -0.02em; /* わずかに字間を詰めて収める */
-            }
-
+            .about-text { font-size: 0.85em; line-height: 2.0; }
+            .submit-section .about-text { font-size: 0.85em; white-space: nowrap; letter-spacing: -0.02em; }
             .section-divider { font-size: 1.5em; margin-bottom: 30px; }
             .submit-button { padding: 12px 25px; font-size: 1.0em; letter-spacing: 0.1em; }
         }
@@ -152,7 +153,7 @@
             <div class="producer-name">Produce by nico oji</div>
             <div class="event-schedule">
                 <div class="schedule-title">Event Schedule</div>
-                <div class="schedule-dates">3.20<span class="day-label">FRI</span> / 3.21<span class="day-label">SAT</span> / 3.28<span class="day-label">SAT</span></div>
+                [cite_start]<div class="schedule-dates">3.20<span class="day-label">FRI</span> / 3.21<span class="day-label">SAT</span> / 3.28<span class="day-label">SAT</span></div> [cite: 51]
             </div>
         </header>
 
@@ -175,12 +176,12 @@
 <script>
 window.onload = function() {
     const loadingScreen = document.getElementById('loading-screen');
-    const mainContent = document.getElementById('main-content');
+    [cite_start]const mainContent = document.getElementById('main-content'); [cite: 53]
     setTimeout(() => {
         loadingScreen.style.opacity = '0';
         mainContent.style.opacity = '1';
         setTimeout(() => { loadingScreen.style.display = 'none'; }, 1500);
-    }, 4500);
+    [cite_start]}, 4500); [cite: 54]
 };
 
 const rawData = [
@@ -204,27 +205,27 @@ const rawData = [
 ];
 
 const teamNames = ["天", "空", "海", "森", "花", "雫", "焔", "凪", "光", "影", "時", "道", "彩", "結", "和"];
-const teamCount = 15;
+[cite_start]const teamCount = 15; [cite: 58]
 const teamsDisplay = document.getElementById('teams-display');
 
 for (let i = 0; i < teamCount; i++) {
     const teamDiv = document.createElement('div');
-    teamDiv.className = 'team-card';
+    [cite_start]teamDiv.className = 'team-card'; [cite: 59]
     teamDiv.innerHTML = `
         <div class="team-title">${teamNames[i]}</div>
         <div class="emoji-slot">□□□</div>
     `;
     const list = document.createElement('ul');
-    list.className = 'member-list';
+    [cite_start]list.className = 'member-list'; [cite: 59]
     rawData.filter((_, index) => index % teamCount === i).forEach(member => {
         const li = document.createElement('li');
-        li.className = 'member-item';
+        [cite_start]li.className = 'member-item'; [cite: 60]
         const cleanId = member.id.replace('from:', '').replace(/[＠@]/, '').split(' ')[0].trim();
         li.innerHTML = `<a href="https://x.com/${cleanId}" target="_blank" class="member-link">${member.n}</a>`;
         list.appendChild(li);
     });
-    teamDiv.appendChild(list);
-    teamsDisplay.appendChild(teamDiv);
+    [cite_start]teamDiv.appendChild(list); [cite: 61]
+    [cite_start]teamsDisplay.appendChild(teamDiv); [cite: 61]
 }
 </script>
 </body>
