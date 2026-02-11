@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Emoji Alchemy OC Project</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
@@ -17,6 +17,7 @@
             color: #fff;
             font-family: "Kozuka Mincho Pro", "Kozuka Mincho Pr6N", "小塚明朝 Pro", "小塚明朝 Pr6N", "Shippori Mincho", "MS PMincho", serif;
             margin: 0; padding: 0; overflow-x: hidden;
+            -webkit-text-size-adjust: 100%;
         }
 
         /* --- オープニング演出 --- */
@@ -27,10 +28,10 @@
             transition: opacity 1.5s ease, visibility 1.5s;
         }
         .intro-text {
-            font-size: 1.5em; color: #f9f295; letter-spacing: 0.3em;
+            font-size: 1.2em; color: #f9f295; letter-spacing: 0.2em;
             opacity: 0; transform: translateY(20px);
             animation: fadeInOut 4s ease forwards;
-            text-align: center; line-height: 2;
+            text-align: center; line-height: 2; padding: 0 20px;
         }
         @keyframes fadeInOut {
             0% { opacity: 0; transform: translateY(20px); filter: blur(10px); }
@@ -41,72 +42,85 @@
 
         #main-content { opacity: 0; transition: opacity 2s ease; position: relative; z-index: 10; }
 
+        /* 装飾カーテン */
         body::before, body::after {
-            content: ""; position: fixed; top: 0; width: 100px; height: 100%; z-index: 100; pointer-events: none;
+            content: ""; position: fixed; top: 0; width: 80px; height: 100%; z-index: 100; pointer-events: none;
             background: linear-gradient(90deg, #3a0000 0%, #600000 20%, #3a0000 40%, #600000 60%, #3a0000 80%, #1a0000 100%);
             box-shadow: 0 0 30px rgba(0,0,0,0.8);
         }
         body::before { left: 0; border-right: 2px solid #d4af37; }
         body::after { right: 0; border-left: 2px solid #d4af37; }
 
-        .wrapper { max-width: 1000px; margin: 0 auto; padding: 100px 50px; position: relative; z-index: 10; }
-        .main-header { text-align: center; margin-bottom: 80px; padding: 20px 0; }
+        .wrapper { max-width: 1000px; margin: 0 auto; padding: 80px 40px; position: relative; z-index: 10; box-sizing: border-box; }
         
+        .main-header { text-align: center; margin-bottom: 60px; }
         .main-title {
-            font-size: 5.5em; font-weight: 700; margin: 0;
+            font-size: 5.0em; font-weight: 700; margin: 0;
             background: linear-gradient(to bottom, #f9f295 0%, #e0aa3e 50%, #b8860b 100%);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 15px rgba(224, 170, 62, 0.4));
-            letter-spacing: 0.1em; line-height: 1.2;
+            filter: drop-shadow(0 0 10px rgba(224, 170, 62, 0.4));
+            letter-spacing: 0.05em; line-height: 1.1;
         }
-        .producer-name { font-size: 1.6em; color: #d4af37; margin-top: 10px; letter-spacing: 0.4em; font-style: italic; }
+        .producer-name { font-size: 1.4em; color: #d4af37; margin-top: 15px; letter-spacing: 0.3em; font-style: italic; }
         
-        .event-schedule { margin-top: 30px; display: inline-block; border-top: 1px solid rgba(212, 175, 55, 0.5); border-bottom: 1px solid rgba(212, 175, 55, 0.5); padding: 12px 40px; }
-        .schedule-title { font-size: 0.9em; letter-spacing: 0.5em; color: #d4af37; margin-bottom: 5px; text-transform: uppercase; }
-        .schedule-dates { font-size: 1.8em; letter-spacing: 0.1em; color: #f9f295; text-shadow: 0 0 10px rgba(249, 242, 149, 0.3); }
-        .day-label { font-size: 0.6em; vertical-align: middle; margin-left: 4px; opacity: 0.8; }
+        .event-schedule { 
+            margin: 40px auto 0; display: inline-block; 
+            border-top: 1px solid rgba(212, 175, 55, 0.5); 
+            border-bottom: 1px solid rgba(212, 175, 55, 0.5); 
+            padding: 15px 30px; 
+        }
+        .schedule-title { font-size: 0.8em; letter-spacing: 0.4em; color: #d4af37; margin-bottom: 8px; text-transform: uppercase; }
+        .schedule-dates { font-size: 1.6em; letter-spacing: 0.05em; color: #f9f295; }
+        .day-label { font-size: 0.6em; vertical-align: baseline; margin-left: 2px; opacity: 0.8; }
 
-        .about-section { text-align: center; margin-bottom: 120px; background: rgba(0, 0, 0, 0.6); border: 1px solid rgba(212, 175, 55, 0.3); padding: 50px; box-shadow: 0 0 40px rgba(0,0,0,1); }
-        .about-title { font-size: 2.4em; color: #f9f295; margin-bottom: 30px; letter-spacing: 0.1em; display: inline-block; border-bottom: 2px solid #d4af37; padding-bottom: 10px; }
-        .about-text { font-size: 1.15em; line-height: 2.4; color: #e8e8e8; }
-        .section-divider { text-align: center; font-size: 3em; color: #d4af37; margin-bottom: 60px; letter-spacing: 0.3em; }
+        .about-section { text-align: center; margin-bottom: 80px; background: rgba(0, 0, 0, 0.7); border: 1px solid rgba(212, 175, 55, 0.3); padding: 40px 20px; }
+        .about-title { font-size: 2.0em; color: #f9f295; margin-bottom: 25px; border-bottom: 2px solid #d4af37; padding-bottom: 10px; display: inline-block; }
+        .about-text { font-size: 1.1em; line-height: 2.2; color: #e8e8e8; word-break: break-all; }
 
-        .teams-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 40px; }
-        .team-card { background: rgba(0, 5, 15, 0.9); border: 1px solid #d4af37; padding: 30px 20px; text-align: center; position: relative; box-shadow: inset 0 0 20px rgba(212, 175, 55, 0.1); transition: 0.3s ease; }
-        .team-card:hover { transform: translateY(-8px); border-color: #f9f295; }
-        .team-title { font-size: 2.5em; color: #f9f295; margin-bottom: 10px; font-weight: 700; letter-spacing: 0.1em; }
-        .emoji-slot { font-size: 1.8em; margin-bottom: 25px; letter-spacing: 0.2em; filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.4)); }
+        .section-divider { text-align: center; font-size: 2.5em; color: #d4af37; margin: 60px 0 40px; letter-spacing: 0.2em; }
+
+        .teams-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 30px; }
+        .team-card { background: rgba(0, 5, 15, 0.9); border: 1px solid #d4af37; padding: 25px 15px; text-align: center; }
+        .team-title { font-size: 2.2em; color: #f9f295; margin-bottom: 5px; font-weight: 700; }
+        .emoji-slot { font-size: 1.6em; margin-bottom: 20px; filter: drop-shadow(0 0 5px rgba(212, 175, 55, 0.5)); }
         .member-list { list-style: none; padding: 0; margin: 0; }
-        .member-item { margin: 12px 0; }
-        .member-link { color: #fff; text-decoration: none; font-size: 1.1em; transition: 0.3s; display: inline-block; }
-        .member-link:hover { color: #f9f295; text-shadow: 0 0 10px #f9f295; }
+        .member-item { margin: 10px 0; }
+        .member-link { color: #fff; text-decoration: none; font-size: 1.05em; transition: 0.3s; }
 
-        .submit-section { text-align: center; margin-top: 100px; padding-bottom: 50px; }
-        .deadline-text { 
-            display: block; font-size: 1.3em; color: #ff3333; font-weight: bold; margin-bottom: 10px; 
-            text-shadow: 0 0 10px rgba(255, 51, 51, 0.3);
-        }
+        .submit-section { text-align: center; margin-top: 80px; padding: 40px 10px; }
+        .deadline-text { display: block; font-size: 1.2em; color: #ff3333; font-weight: bold; margin-bottom: 15px; }
         .submit-button {
-            display: inline-block; padding: 20px 60px; border: 2px solid #d4af37; color: #f9f295; text-decoration: none; font-size: 1.5em; letter-spacing: 0.3em; transition: all 0.4s ease;
-            background: rgba(212, 175, 55, 0.05); position: relative; overflow: hidden;
+            display: inline-block; padding: 18px 40px; border: 2px solid #d4af37; color: #f9f295; 
+            text-decoration: none; font-size: 1.3em; letter-spacing: 0.2em; background: rgba(212, 175, 55, 0.05);
         }
-        .submit-button:hover { background: rgba(212, 175, 55, 0.2); box-shadow: 0 0 30px rgba(212, 175, 55, 0.3); transform: scale(1.05); color: #fff; }
 
+        /* --- スマホ専用・完全レスポンシブ修正 --- */
         @media screen and (max-width: 768px) {
-            body::before, body::after { width: 10px; }
-            .wrapper { padding: 40px 15px; }
-            .main-title { font-size: 6.2vw; white-space: nowrap; letter-spacing: 0.02em; margin: 0 auto; width: fit-content; }
-            .main-title br { display: none; }
-            .producer-name { font-size: 3.5vw; letter-spacing: 0.15em; margin-top: 5px; }
-            .event-schedule { padding: 8px 10px; width: 85%; margin-top: 20px; }
-            .schedule-dates { font-size: 4.2vw; white-space: nowrap; letter-spacing: 0.05em; }
-            .about-section { padding: 25px 15px; margin-bottom: 50px; }
-            .about-title { font-size: 1.1em; white-space: nowrap; }
-            .about-text { font-size: 0.85em; line-height: 2.0; }
+            body::before, body::after { width: 12px; } /* カーテンを細くしてメイン領域を確保 */
+            .wrapper { padding: 50px 20px; }
+            
+            .main-title { 
+                font-size: 10vw; /* 画面幅に合わせて自動縮小 */
+                white-space: normal; /* 折り返しを許可 */
+                display: block;
+                width: 100%;
+            }
+            .producer-name { font-size: 4vw; letter-spacing: 0.1em; }
+            
+            .event-schedule { 
+                padding: 10px 15px; 
+                width: calc(100% - 20px); 
+                box-sizing: border-box;
+                margin-top: 30px;
+            }
+            .schedule-dates { font-size: 4.5vw; white-space: nowrap; }
+            
+            .about-title { font-size: 5.5vw; }
+            .about-text { font-size: 0.95em; line-height: 1.8; }
+            
             .deadline-text { font-size: 1.0em; }
-            .submit-section .about-text { font-size: 0.8em; white-space: nowrap; letter-spacing: -0.03em; }
-            .section-divider { font-size: 1.5em; margin-bottom: 30px; }
-            .submit-button { padding: 12px 25px; font-size: 1.0em; letter-spacing: 0.1em; }
+            .section-divider { font-size: 1.8em; }
+            .submit-button { padding: 15px 25px; font-size: 1.1em; }
         }
     </style>
 </head>
@@ -128,8 +142,8 @@
         </header>
 
         <section class="about-section">
-            <h2 class="about-title">What's Emoji Alchemy OC Project?</h2>
-            <p class="about-text">――それは、偶然から魂を練り上げる禁忌の錬金術。<br>ランダムに選ばれた「絵文字」という名の素材を元に、<br>創造主たちが全く新しい「オリジナルキャラクター」を錬成する企画です。<br>運命が導いたシンボルから、一体どのような物語が産声を上げるのか。<br>至高のクリエイティビティが今、ここに集います。</p>
+            <h2 class="about-title">What's Emoji Alchemy?</h2>
+            <p class="about-text">――それは、偶然から魂を練り上げる禁忌の錬金術。<br>ランダムに選ばれた「絵文字」を素材に、<br>創造主たちが全く新しい「キャラクター」を錬成する企画です。<br>至高のクリエイティビティが今、ここに集います。</p>
         </section>
 
         <div class="section-divider">ENTRY TEAM</div>
@@ -138,7 +152,7 @@
         <section class="submit-section">
             <div class="section-divider">SUBMISSION</div>
             <span class="deadline-text">【 作品提出締切：3月15日(金) 】</span>
-            <p class="about-text" style="margin-bottom: 30px;">作品の提出は、下記のボタンよりお願いいたします。</p>
+            <p class="about-text" style="margin-bottom: 25px;">提出は下記のボタンよりお願いいたします。</p>
             <a href="https://forms.gle/XytXPo531mky9QZh7" target="_blank" class="submit-button">SUBMIT WORK</a>
         </section>
     </div>
@@ -150,12 +164,13 @@ window.addEventListener('load', function() {
     const mainContent = document.getElementById('main-content');
     setTimeout(() => {
         loadingScreen.style.opacity = '0';
-        loadingScreen.style.visibility = 'hidden';
-        mainContent.style.opacity = '1';
-    }, 4500);
+        setTimeout(() => { 
+            loadingScreen.style.display = 'none';
+            mainContent.style.opacity = '1';
+        }, 1500);
+    }, 4000);
 });
 
-// 抽選結果データ
 const teamInfo = [
     { name: "天", emoji: "🌦️🚑🔫" }, { name: "空", emoji: "🌎🍛🏛️" }, { name: "海", emoji: "🏣🌒🚲" },
     { name: "森", emoji: "🧺⛅🍵" }, { name: "花", emoji: "🐎🎳🐉" }, { name: "雫", emoji: "🔧🥱🍿" },
