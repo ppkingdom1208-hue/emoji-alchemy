@@ -23,24 +23,30 @@
 
         /* 装飾の柱 */
         body::before, body::after {
-            content: ""; position: fixed; top: 0; width: 80px; height: 100%; z-index: 100; pointer-events: none;
+            content: ""; position: fixed; top: 0; width: 60px; height: 100%; z-index: 100; pointer-events: none;
             background: linear-gradient(90deg, #3a0000 0%, #600000 20%, #3a0000 40%, #600000 60%, #3a0000 80%, #1a0000 100%);
             box-shadow: 0 0 30px rgba(0,0,0,0.8);
         }
         body::before { left: 0; border-right: 2px solid #d4af37; }
         body::after { right: 0; border-left: 2px solid #d4af37; }
 
+        /* レイアウト基本 */
+        .wrapper { max-width: 1000px; margin: 0 auto; padding: 100px 80px; position: relative; z-index: 10; }
+
+        /* スマホ用レスポンシブ調整 (ここが重要) */
         @media (max-width: 768px) {
-            body::before, body::after { width: 15px; }
-            .wrapper { padding: 60px 20px; }
+            body::before, body::after { width: 8px; } /* 柱を極細にして画面を広く */
+            .wrapper { padding: 60px 25px; } /* 左右の余白をスマホ用に調整 */
             .main-title { font-size: 2.8em !important; }
-            .countdown-timer { font-size: 2.2em !important; }
+            .countdown-timer { font-size: 2.0em !important; }
+            .deadline-alert { font-size: 1.1em !important; }
+            .section-divider { font-size: 1.8em !important; }
+            .about-text { font-size: 0.95em; line-height: 2.2; }
+            .submit-button { padding: 15px 30px; font-size: 1.2em; width: 80%; }
         }
 
-        /* レイアウト */
-        .wrapper { max-width: 1000px; margin: 0 auto; padding: 100px 50px; position: relative; z-index: 10; }
         .main-header { text-align: center; margin-bottom: 80px; }
-        .main-title { font-family: 'Bodoni Moda', serif; font-size: 5.5em; background: linear-gradient(to bottom, #f9f295, #b8860b, #f9f295); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 4px 4px rgba(0,0,0,0.6)); }
+        .main-title { font-family: 'Bodoni Moda', serif; font-size: 5.5em; background: linear-gradient(to bottom, #f9f295, #b8860b, #f9f295); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 4px 4px rgba(0,0,0,0.6)); margin: 0; }
         .producer-name { font-family: 'Montserrat', sans-serif; font-size: 1.1em; color: #d4af37; margin-top: 5px; letter-spacing: 0.6em; text-transform: uppercase; }
 
         .about-section { text-align: center; margin-bottom: 100px; padding: 40px 20px; background: rgba(0,0,0,0.4); border: 1px solid rgba(212,175,55,0.3); }
@@ -48,8 +54,7 @@
 
         .section-divider { text-align: center; font-size: 2.6em; color: #d4af37; margin: 80px 0 60px; letter-spacing: 0.3em; }
 
-        /* チーム表示 */
-        .teams-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; }
+        .teams-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 30px; }
         .team-card { background: rgba(0, 5, 15, 0.95); border: 1px solid #d4af37; padding: 30px 20px; text-align: center; }
         .team-title { font-size: 2.8em; color: #f9f295; margin-bottom: 5px; }
         .emoji-slot { font-size: 1.5em; margin-bottom: 25px; letter-spacing: 0.3em; }
@@ -61,8 +66,8 @@
         .faq-container { max-width: 800px; margin: 0 auto 100px; }
         .faq-category { color: #d4af37; font-size: 1.2em; margin: 40px 0 20px; border-left: 3px solid #d4af37; padding-left: 15px; }
         .faq-item { border-bottom: 1px solid rgba(212, 175, 55, 0.2); }
-        .faq-question { width: 100%; background: none; border: none; color: #f9f295; text-align: left; padding: 20px 10px; font-size: 1.1em; font-family: inherit; cursor: pointer; display: flex; justify-content: space-between; }
-        .faq-question::after { content: '＋'; }
+        .faq-question { width: 100%; background: none; border: none; color: #f9f295; text-align: left; padding: 20px 10px; font-size: 1.1em; font-family: inherit; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+        .faq-question::after { content: '＋'; font-size: 1.2em; }
         .faq-question.active::after { content: '－'; }
         .faq-answer { max-height: 0; overflow: hidden; transition: 0.3s; background: rgba(255, 255, 255, 0.02); }
         .faq-answer-inner { padding: 0 20px 20px; line-height: 1.8; color: #ccc; }
@@ -71,7 +76,8 @@
         .submit-section { text-align: center; margin-top: 100px; padding-bottom: 100px; }
         .deadline-alert { color: #ff4d4d; font-size: 1.5em; font-weight: bold; margin-bottom: 20px; text-shadow: 0 0 10px rgba(255,0,0,0.3); }
         .countdown-timer { font-family: 'Bodoni Moda', serif; font-size: 4em; color: #f9f295; margin-bottom: 40px; }
-        .submit-button { display: inline-block; padding: 20px 60px; border: 2px solid #d4af37; color: #f9f295; text-decoration: none; font-size: 1.5em; letter-spacing: 0.3em; background: rgba(212, 175, 55, 0.1); }
+        .submit-button { display: inline-block; padding: 20px 60px; border: 2px solid #d4af37; color: #f9f295; text-decoration: none; font-size: 1.5em; letter-spacing: 0.3em; background: rgba(212, 175, 55, 0.1); transition: 0.3s; }
+        .submit-button:hover { background: rgba(212, 175, 55, 0.3); box-shadow: 0 0 20px rgba(212, 175, 55, 0.4); }
 
         .reveal { opacity: 0; transform: translateY(30px); transition: 1.2s ease; }
         .reveal.active { opacity: 1; transform: translateY(0); }
@@ -112,7 +118,7 @@
         </div>
         <div class="faq-item">
             <button class="faq-question">モチーフの解釈はどこまで自由ですか？</button>
-            <div class="faq-answer"><div class="faq-answer-inner"><b>かなり自由です。</b><br>例：「チーム焔」の置時計がモチーフの場合、時計であれば種類は問いません。<br><b>世界観</b>：他作品から作成しても大丈夫です。</div></div>
+            <div class="faq-answer"><div class="faq-answer-inner"><b>かなり自由です。</b><br>例：「チーム焔」の置時計がモチーフの場合、時計であれば種類は問いません。<br><br><b>世界観</b>：他作品から作成しても大丈夫です。</div></div>
         </div>
         <div class="faq-item">
             <button class="faq-question">一次創作（オリジナル）でもいいですか？</button>
@@ -126,7 +132,7 @@
         </div>
         <div class="faq-item">
             <button class="faq-question">解釈が合っているか不安な時はどうすればいいですか？</button>
-            <div class="faq-answer"><div class="faq-answer-inner">個別にDMを送っていただいて大丈夫です！気になったことがあればいつでもご連絡ください。</div></div>
+            <div class="faq-answer"><div class="faq-answer-inner">個別にDMを送っていただいて大丈夫です。気になったことがあればいつでもご連絡ください。</div></div>
         </div>
     </section>
 
@@ -140,6 +146,7 @@
 </div>
 
 <script>
+// 締切設定
 const deadline = new Date("March 15, 2026 23:59:59").getTime();
 function updateCountdown() {
     const now = new Date().getTime();
@@ -153,6 +160,7 @@ function updateCountdown() {
 }
 setInterval(updateCountdown, 1000);
 
+// FAQのアコーディオン
 document.addEventListener('click', (e) => {
     if (e.target.classList.contains('faq-question')) {
         const btn = e.target; btn.classList.toggle('active');
@@ -179,7 +187,7 @@ document.addEventListener('DOMContentLoaded', function() {
         {n: "みや", id: "gggggggg_miya"}, {n: "まやとぎ", id: "mytg_s"}, {n: "山田。", id: "yamada_hzbn"}, {n: "雨蛙", id: "Kawazu_1026"}, {n: "羽月", id: "hazuki0109"},
         {n: "うさ", id: "inaba_UsAsU"}, {n: "タケノコの里", id: "taikoubou06"}, {n: "黒狛", id: "kuraha_50"}, {n: "鋼", id: "hgn__0121"}, {n: "やつか", id: "yatsuka834"},
         {n: "komayu_M.M", id: "MKomayu321"}, {n: "マジシャンズ列島", id: "3CQe1cadQBWtQ56"}, {n: "あひる", id: "minikuiahirunoko"}, {n: "293", id: "293_wada"}, {n: "Na", id: "Na1945A"},
-        {n: "ごーちゃん", id: "godesuwayo"}, {n: "おたんこ茄子", id: "nako_piyo"}, {n: "ウルフ", id: "Cxb6shCK5f2"}, {n: "maccham", id: "chamti3e"}, {n: "ねこまるさん", id: "haxuzak_V"},
+        {n: "ごーちゃん", id: "godesuwayo"}, {n: "おたんコ茄子", id: "nako_piyo"}, {n: "ウルフ", id: "Cxb6shCK5f2"}, {n: "maccham", id: "chamti3e"}, {n: "ねこまるさん", id: "haxuzak_V"},
         {n: "ブルー･スター", id: "aohosi44"}, {n: "三色団子", id: "h08kb74aBz89978"}, {n: "ホッソリ紅", id: "0FmkiBuu23477"}, {n: "ひよこ", id: "oe67353"}, {n: "ミツ", id: "tbhp_mitsu"},
         {n: "さいとうさとう", id: "saitou_satou"}, {n: "らびぃ", id: "amuamuaimuu"}, {n: "みかど", id: "rnkn_atiti05"}, {n: "ゆきだま", id: "YUK1_DAMA"}
     ];
