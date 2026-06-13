@@ -3,110 +3,289 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Emoji Alchemy OC Project</title>
+    <title>Emoji Alchemy OC Project Vol.2</title>
     <style>
-        /* フォント読み込み */
-        @import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;0,700;0,900;1,400&family=Montserrat:wght@400;700&family=Shippori+Mincho:wght@400;700&display=swap');
+        /* フォント読み込み：太く存在感のあるモダンゴシック、洗練されたサンセリフ */
+        @import url('https://fonts.googleapis.com/css2?family=Paytone+One&family=Montserrat:wght@400;700;900&family=Noto+Sans+JP:wght@300;500;900&display=swap');
 
         /* 全体設定 */
         body {
-            background-color: #000a1a;
-            background-image: 
-                radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.05) 0%, transparent 80%),
-                repeating-conic-gradient(from 0deg, rgba(212, 175, 55, 0.02) 0deg 15deg, transparent 15deg 30deg),
-                repeating-conic-gradient(from 90deg, rgba(212, 175, 55, 0.01) 0deg 15deg, transparent 15deg 30deg);
-            background-size: 100% 100%, 60px 60px, 60px 60px;
-            color: #fff;
-            font-family: "Shippori Mincho", "MS PMincho", serif;
+            background-color: #f7f9fa;
+            color: #1a1d20;
+            font-family: "Noto Sans JP", "Helvetica Neue", Arial, sans-serif;
             margin: 0; padding: 0; overflow-x: hidden;
+            letter-spacing: 0.05em;
         }
 
-        /* 装飾の柱 */
-        body::before, body::after {
-            content: ""; position: fixed; top: 0; width: 60px; height: 100%; z-index: 100; pointer-events: none;
-            background: linear-gradient(90deg, #3a0000 0%, #600000 20%, #3a0000 40%, #600000 60%, #3a0000 80%, #1a0000 100%);
-            box-shadow: 0 0 30px rgba(0,0,0,0.8);
+        /* 背景のサイバーグリッドライン */
+        .bg-lines {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none;
+            background: 
+                linear-gradient(90deg, rgba(255, 77, 77, 0.03) 1px, transparent 1px) 0 0 / 40px 40px,
+                linear-gradient(rgba(0, 210, 255, 0.02) 1px, transparent 1px) 0 0 / 40px 40px;
         }
-        body::before { left: 0; border-right: 2px solid #d4af37; }
-        body::after { right: 0; border-left: 2px solid #d4af37; }
+
+        /* ==========================================================================
+           🎬 オープニングアニメーション演出
+           ========================================================================== */
+        #opening-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #f7f9fa;
+            z-index: 9999; display: flex; justify-content: center; align-items: center;
+            opacity: 1; transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1); pointer-events: none;
+        }
+        #opening-logo {
+            width: 180px; height: 180px; object-fit: contain;
+            opacity: 0; transform: scale(0.9);
+            animation: logoFadeInUp 2.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+        }
+        @keyframes logoFadeInUp {
+            0% { opacity: 0; transform: scale(0.9) translateY(20px); filter: blur(5px); }
+            30% { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); }
+            75% { opacity: 1; transform: scale(1) translateY(0); }
+            100% { opacity: 0; transform: scale(0.95) translateY(-30px); }
+        }
 
         /* レイアウト基本 */
-        .wrapper { max-width: 1000px; margin: 0 auto; padding: 100px 80px; position: relative; z-index: 10; }
+        .wrapper { max-width: 1100px; margin: 0 auto; padding: 80px 40px 120px; position: relative; z-index: 10; }
 
-        /* スマホ用レスポンシブ調整 (ここが重要) */
-        @media (max-width: 768px) {
-            body::before, body::after { width: 8px; } /* 柱を極細にして画面を広く */
-            .wrapper { padding: 60px 25px; } /* 左右の余白をスマホ用に調整 */
-            .main-title { font-size: 2.8em !important; }
-            .countdown-timer { font-size: 2.0em !important; }
-            .deadline-alert { font-size: 1.1em !important; }
-            .section-divider { font-size: 1.8em !important; }
-            .about-text { font-size: 0.95em; line-height: 2.2; }
-            .submit-button { padding: 15px 30px; font-size: 1.2em; width: 80%; }
+        /* ヘッダーエリア */
+        .main-header { text-align: center; margin-bottom: 50px; }
+        
+        /* 添付ロゴの定位置配置 */
+        .header-logo-img {
+            width: 110px; height: 110px; object-fit: contain; margin-bottom: 20px;
+            opacity: 0; transform: translateY(15px);
+            animation: headerElementFade 0.8s 1.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
         }
 
-        .main-header { text-align: center; margin-bottom: 80px; }
-        .main-title { font-family: 'Bodoni Moda', serif; font-size: 5.5em; background: linear-gradient(to bottom, #f9f295, #b8860b, #f9f295); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 4px 4px rgba(0,0,0,0.6)); margin: 0; }
-        .producer-name { font-family: 'Montserrat', sans-serif; font-size: 1.1em; color: #d4af37; margin-top: 5px; letter-spacing: 0.6em; text-transform: uppercase; }
+        /* ルイカ風の存在感ある太いタイトル */
+        .main-title { 
+            font-family: 'Paytone One', 'Noto Sans JP', sans-serif; font-weight: 900; 
+            font-size: 4.4em; color: #111; margin: 0; line-height: 1.15; word-break: break-word;
+            opacity: 0; transform: translateY(15px);
+            animation: headerElementFade 0.8s 1.9s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+        }
+        /* 赤い文字のVol.2（完全に分離） */
+        .sub-title-vol2 {
+            display: block; font-family: 'Montserrat', sans-serif; font-weight: 900;
+            font-size: 2.2rem; color: #ff4d4d; margin-top: 10px; letter-spacing: 0.15em;
+            text-shadow: 0 0 15px rgba(255, 77, 77, 0.15);
+            opacity: 0; transform: translateY(15px);
+            animation: headerElementFade 0.8s 2.0s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+        }
+        .producer-name { 
+            font-family: 'Montserrat', sans-serif; font-size: 0.85em; font-weight: 400; color: #6c757d; 
+            margin-top: 20px; margin-bottom: 0; letter-spacing: 0.5em; text-transform: uppercase; 
+            opacity: 0; transform: translateY(15px);
+            animation: headerElementFade 0.8s 2.1s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+        }
 
-        .about-section { text-align: center; margin-bottom: 100px; padding: 40px 20px; background: rgba(0,0,0,0.4); border: 1px solid rgba(212,175,55,0.3); }
-        .about-text { line-height: 2.6; font-size: 1.1em; color: #e8e8e8; }
+        @keyframes headerElementFade {
+            to { opacity: 1; transform: translateY(0); }
+        }
 
-        .section-divider { text-align: center; font-size: 2.6em; color: #d4af37; margin: 80px 0 60px; letter-spacing: 0.3em; }
+        /* 🗓 新設：開催スケジュールエリア */
+        .schedule-banner {
+            text-align: center; margin: 50px auto 90px; max-width: 600px;
+            padding: 20px; border-top: 1px solid rgba(0,0,0,0.06); border-bottom: 1px solid rgba(0,0,0,0.06);
+            opacity: 0; transform: translateY(15px);
+            animation: headerElementFade 0.8s 2.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+        }
+        .schedule-label {
+            font-family: 'Montserrat', sans-serif; font-size: 0.8em; font-weight: 700; color: #ff4d4d;
+            letter-spacing: 0.3em; margin-bottom: 8px;
+        }
+        .schedule-dates {
+            font-family: 'Montserrat', sans-serif; font-size: 1.8em; font-weight: 900; color: #111;
+            letter-spacing: 0.05em; display: flex; justify-content: center; align-items: center; gap: 10px;
+        }
+        .schedule-dates .day-week { font-size: 0.55em; color: #6c757d; font-weight: 700; margin-left: 2px; }
+        .schedule-dates .separator { color: #00d2ff; font-weight: 300; margin: 0 5px; }
 
-        .teams-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 30px; }
-        .team-card { background: rgba(0, 5, 15, 0.95); border: 1px solid #d4af37; padding: 30px 20px; text-align: center; }
-        .team-title { font-size: 2.8em; color: #f9f295; margin-bottom: 5px; }
-        .emoji-slot { font-size: 1.5em; margin-bottom: 25px; letter-spacing: 0.3em; }
-        .member-list { list-style: none; padding: 0; margin: 0; }
-        .member-link { color: #fff; text-decoration: none; display: block; margin: 10px 0; font-size: 1.1em; transition: 0.3s; }
-        .member-link:hover { color: #f9f295; }
+        /* コンテンツセクション基本 */
+        .section-card { 
+            background: #ffffff; border-left: 4px solid #ff4d4d; padding: 50px 60px; margin-bottom: 100px; 
+            box-shadow: 0 15px 35px rgba(0,0,0,0.02); position: relative;
+        }
+        .section-card::after {
+            content: ""; position: absolute; top: 0; right: 0; width: 30px; height: 30px;
+            border-top: 2px solid rgba(0, 210, 255, 0.3); border-right: 2px solid rgba(0, 210, 255, 0.3);
+        }
+        .section-title { 
+            font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 2.0em; color: #111; 
+            margin-top: 0; margin-bottom: 30px; letter-spacing: 0.1em; display: flex; align-items: center;
+        }
+        .section-title::after {
+            content: ""; flex-grow: 1; height: 1px; background: linear-gradient(90deg, #ff4d4d, transparent); margin-left: 20px;
+        }
+        .about-text { line-height: 2.2; font-size: 1.05em; color: #495057; font-weight: 300; }
+
+        /* チームグリッド */
+        .teams-container { 
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; margin-bottom: 100px;
+        }
+        .team-card { 
+            background: #ffffff; border: 1px solid #e9ecef; border-bottom: 3px solid #e9ecef; 
+            padding: 45px 20px 40px; text-align: center; position: relative; transition: all 0.4s ease;
+            overflow: hidden;
+        }
+        .team-card:hover {
+            transform: translateY(-5px); border-bottom-color: #00d2ff; box-shadow: 0 12px 30px rgba(0,210,255,0.08);
+        }
+        .team-card::before {
+            content: "SYS_VOL.2"; position: absolute; top: 8px; left: 12px; font-family: 'Montserrat', sans-serif;
+            font-size: 0.6em; color: #ced4da; letter-spacing: 0.1em;
+        }
+
+        /* 🔮 新設：各チーム専用のサイバー抽象マーク(CSS描画) */
+        .team-mark-container {
+            width: 44px; height: 44px; margin: 0 auto 15px; display: flex; justify-content: center; align-items: center;
+            position: relative; color: #ff4d4d;
+        }
+        .team-card:hover .team-mark-container { color: #00d2ff; transform: rotate(45deg); transition: 0.4s ease; }
+
+        .team-title { font-size: 1.8em; font-weight: 900; color: #111; margin-bottom: 12px; letter-spacing: 0.1em; }
+        .emoji-slot { 
+            font-size: 1.05em; font-family: 'Montserrat', sans-serif; color: #555; background: #f1f3f5;
+            padding: 6px 18px; display: inline-block; border-radius: 3px; letter-spacing: 0.4em; font-weight: 700; margin-bottom: 25px;
+        }
+        .member-placeholder {
+            font-family: 'Montserrat', sans-serif; font-size: 0.85em; color: #adb5bd; letter-spacing: 0.2em; font-weight: 700;
+        }
 
         /* FAQ */
-        .faq-container { max-width: 800px; margin: 0 auto 100px; }
-        .faq-category { color: #d4af37; font-size: 1.2em; margin: 40px 0 20px; border-left: 3px solid #d4af37; padding-left: 15px; }
-        .faq-item { border-bottom: 1px solid rgba(212, 175, 55, 0.2); }
-        .faq-question { width: 100%; background: none; border: none; color: #f9f295; text-align: left; padding: 20px 10px; font-size: 1.1em; font-family: inherit; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
-        .faq-question::after { content: '＋'; font-size: 1.2em; }
-        .faq-question.active::after { content: '－'; }
-        .faq-answer { max-height: 0; overflow: hidden; transition: 0.3s; background: rgba(255, 255, 255, 0.02); }
-        .faq-answer-inner { padding: 0 20px 20px; line-height: 1.8; color: #ccc; }
+        .faq-container { max-width: 900px; margin: 0 auto 100px; }
+        .faq-category { 
+            font-size: 1.1em; font-weight: 700; color: #ff4d4d; margin: 40px 0 20px; 
+            display: flex; align-items: center; letter-spacing: 0.1em;
+        }
+        .faq-category::before { content: "■"; margin-right: 10px; font-size: 0.8em; color: #00d2ff; }
+        .faq-item { border-bottom: 1px solid #e9ecef; background: #fff; margin-bottom: 10px; }
+        .faq-question { 
+            width: 100%; background: none; border: none; color: #212529; text-align: left; padding: 22px 25px; 
+            font-size: 1.05em; font-weight: 500; font-family: inherit; cursor: pointer; display: flex; justify-content: space-between; align-items: center;
+        }
+        .faq-question::after { content: '＋'; font-size: 1.0em; color: #ff4d4d; transition: 0.3s; }
+        .faq-question.active::after { transform: rotate(45deg); color: #00d2ff; }
+        .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; background: #fdfefe; }
+        .faq-answer-inner { padding: 0 25px 25px; line-height: 2.0; color: #495057; font-size: 0.95em; border-top: 1px dashed #f1f3f5; padding-top: 15px; }
 
         /* 提出セクション */
-        .submit-section { text-align: center; margin-top: 100px; padding-bottom: 100px; }
-        .deadline-alert { color: #ff4d4d; font-size: 1.5em; font-weight: bold; margin-bottom: 20px; text-shadow: 0 0 10px rgba(255,0,0,0.3); }
-        .countdown-timer { font-family: 'Bodoni Moda', serif; font-size: 4em; color: #f9f295; margin-bottom: 40px; }
-        .submit-button { display: inline-block; padding: 20px 60px; border: 2px solid #d4af37; color: #f9f295; text-decoration: none; font-size: 1.5em; letter-spacing: 0.3em; background: rgba(212, 175, 55, 0.1); transition: 0.3s; }
-        .submit-button:hover { background: rgba(212, 175, 55, 0.3); box-shadow: 0 0 20px rgba(212, 175, 55, 0.4); }
+        .submit-section { 
+            text-align: center; background: #111417; color: #ffffff; padding: 80px 40px; position: relative;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15); overflow: hidden;
+        }
+        .submit-section::before {
+            content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 4px;
+            background: linear-gradient(90deg, #ff4d4d, #00d2ff);
+        }
+        .deadline-alert { 
+            font-family: 'Montserrat', sans-serif; color: #ff4d4d; font-size: 1.1em; font-weight: 700; 
+            margin-bottom: 15px; letter-spacing: 0.1em;
+        }
+        .deadline-date { font-size: 1.8em; font-weight: 700; margin-bottom: 30px; letter-spacing: 0.05em; }
+        .countdown-timer { 
+            font-family: 'Montserrat', sans-serif; font-size: 4.2em; font-weight: 300; color: #ffffff; 
+            margin-bottom: 40px; letter-spacing: -0.02em;
+        }
+        .countdown-timer span { font-size: 0.4em; margin-right: 15px; color: #6c757d; font-weight: 400; }
+        .submit-button { 
+            display: inline-block; padding: 22px 65px; border: 1px solid #ff4d4d; color: #ffffff; 
+            text-decoration: none; font-size: 1.2em; font-weight: 700; letter-spacing: 0.2em; 
+            background: #ff4d4d; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(255, 77, 77, 0.3);
+        }
+        .submit-button:hover { 
+            background: transparent; color: #ff4d4d; box-shadow: 0 0 25px rgba(255, 77, 77, 0.2);
+        }
 
-        .reveal { opacity: 0; transform: translateY(30px); transition: 1.2s ease; }
+        .reveal { opacity: 0; transform: translateY(40px); transition: 1.0s cubic-bezier(0.25, 1, 0.5, 1); }
         .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* ==========================================================================
+           📱 スマートフォン・タブレット用レスポンシブ調整（完全最適化）
+           ========================================================================== */
+        @media (max-width: 768px) {
+            .wrapper { padding: 40px 20px 80px; }
+            .main-header { margin-bottom: 40px; }
+            .header-logo-img { width: 90px; height: 90px; margin-bottom: 15px; }
+            .main-title { font-size: 2.3em; }
+            .sub-title-vol2 { font-size: 1.4rem; margin-top: 5px; }
+            .producer-name { font-size: 0.75em; letter-spacing: 0.3em; margin-top: 15px; }
+
+            .schedule-banner { margin: 35px auto 60px; padding: 15px 10px; }
+            .schedule-dates { font-size: 1.25em; }
+
+            .section-card { padding: 40px 25px; margin-bottom: 60px; }
+            .section-title { font-size: 1.5em; margin-bottom: 20px; }
+            .about-text { font-size: 0.95em; line-height: 2.0; }
+
+            .teams-container { grid-template-columns: 1fr; gap: 15px; margin-bottom: 60px; }
+            .team-card { padding: 35px 20px 30px; }
+            .team-title { font-size: 1.5em; }
+
+            .faq-container { margin-bottom: 60px; }
+            .faq-question { padding: 18px 20px; font-size: 0.95em; }
+
+            .submit-section { padding: 60px 20px; }
+            .deadline-date { font-size: 1.3em; margin-bottom: 25px; }
+            .countdown-timer { font-size: 2.4em; margin-bottom: 35px; }
+            .submit-button { padding: 18px 0; font-size: 1.05em; width: 100%; max-width: 280px; }
+        }
     </style>
 </head>
 <body>
 
+<!-- オープニングスクリーン -->
+<div id="opening-overlay">
+    <img id="opening-logo" src="rg2.png" alt="Logo">
+</div>
+
+<div class="bg-lines"></div>
+
 <div class="wrapper">
+    <!-- ヘッダーエリア -->
     <header class="main-header">
+        <img class="header-logo-img" src="rg2.png" alt="Logo">
         <h1 class="main-title">Emoji Alchemy<br>OC Project</h1>
+        <div class="sub-title-vol2">Vol.2</div>
         <div class="producer-name">Produce by nico oji</div>
     </header>
 
-    <section class="about-section reveal">
-        <h2 style="color:#f9f295; border-bottom:1px solid #d4af37; display:inline-block; padding-bottom:10px; margin-bottom:30px;">What's Emoji Alchemy OC Project?</h2>
+    <!-- 新設：開催日スケジュール表記 -->
+    <div class="schedule-banner">
+        <div class="schedule-label">PROJECT LIVE DATES</div>
+        <div class="schedule-dates">
+            7.24<span class="day-week">[Fri]</span>
+            <span class="separator">/</span>
+            7.25<span class="day-week">[Sat]</span>
+            <span class="separator">/</span>
+            7.26<span class="day-week">[Sun]</span>
+        </div>
+    </div>
+
+    <!-- 企画概要 -->
+    <section class="section-card reveal">
+        <h2 class="section-title">ABOUT</h2>
         <p class="about-text">
             ――それは、偶然から魂を練り上げる禁忌の錬金術。<br>
             ランダムに選ばれた「絵文字」という名の素材を元に、<br>
-            創造主たちが全く新しい「オリジナルキャラクター」を錬成する企画です。<br>
-            運命が導いたシンボルから、一体どのような物語が産声を上げるのか。<br>
-            至高のクリエイティビティが今、ここに集います。
+            創造主たちが全く新しい「オリジナルキャラクター」を錬成する企画の第二章です。<br>
+            <br>
+            今宵、地獄の悪魔が仕掛ける運命のシンボルから、一体どのような物語が産声を上げるのか。<br>
+            洗練された狂気と至高のクリエイティビティが、再びここに集います。
         </p>
     </section>
 
-    <div class="section-divider reveal">ENTRY TEAM</div>
-    <div id="teams-display" class="teams-container"></div>
+    <!-- エントリーチーム（15要素） -->
+    <section class="section-card reveal" style="background: transparent; box-shadow: none; padding: 0; border: none;">
+        <h2 class="section-title" style="margin-bottom: 40px;">ENTRY TEAM</h2>
+        <div id="teams-display" class="teams-container"></div>
+    </section>
 
-    <div class="section-divider reveal">FAQ</div>
+    <!-- FAQ -->
     <section class="faq-container reveal">
+        <h2 class="section-title" style="padding-left: 0;">FAQ</h2>
+        
         <div class="faq-category">キャラクター制作に関するQ&A</div>
         <div class="faq-item">
             <button class="faq-question">キャラクター作成の基本ルールは？</button>
@@ -118,7 +297,7 @@
         </div>
         <div class="faq-item">
             <button class="faq-question">モチーフの解釈はどこまで自由ですか？</button>
-            <div class="faq-answer"><div class="faq-answer-inner"><b>かなり自由です。</b><br>例：「チーム焔」の置時計がモチーフの場合、時計であれば種類は問いません。<br><br><b>世界観</b>：他作品から作成しても大丈夫です。</div></div>
+            <div class="faq-answer"><div class="faq-answer-inner"><b>かなり自由です。</b><br>例：「チーム魔王」の置時計がモチーフの場合、時計であれば種類は問いません。<br><br><b>世界観</b>：他作品から作成しても大丈夫です。</div></div>
         </div>
         <div class="faq-item">
             <button class="faq-question">一次創作（オリジナル）でもいいですか？</button>
@@ -136,82 +315,107 @@
         </div>
     </section>
 
+    <!-- 提出エリア -->
     <section class="submit-section reveal">
-        <div class="section-divider">SUBMISSION</div>
-        <div class="deadline-alert">【 作品提出締切：3月15日(日) 23:59 】</div>
-        <div id="timer" class="countdown-timer">00d 00h 00m 00s</div>
-        <p class="about-text" style="margin-bottom:30px;">錬成した作品の提出は、下記のボタンよりお願いいたします。</p>
-        <a href="https://forms.gle/XytXPo531mky9QZh7" target="_blank" class="submit-button">SUBMIT WORK</a>
+        <div class="deadline-alert">SUBMISSION DEADLINE</div>
+        <div class="deadline-date">作品提出締切：7月20日(月) 23:59</div>
+        <div id="timer" class="countdown-timer">00<span>d</span> 00<span>h</span> 00<span>m</span> 00<span>s</span></div>
+        <p class="about-text" style="color: #a0aec0; margin-bottom:40px; font-size: 0.95em;">
+            本戦開催日：7/24, 7/25, 7/26<br>
+            錬成した作品の提出は、下記のボタン（Googleフォーム）よりお願いいたします。
+        </p>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLScM1Txh3kE29516i_Zs8527BR5MG7APWTRPA6nSymerZVxBJg/viewform?usp=header" target="_blank" class="submit-button">SUBMIT WORK</a>
     </section>
 </div>
 
 <script>
-// 締切設定
-const deadline = new Date("March 15, 2026 23:59:59").getTime();
+// 🎬 オープニングスクリーンの非表示化制御（アニメーション終了後）
+window.addEventListener('load', () => {
+    setTimeout(() => {
+        const overlay = document.getElementById('opening-overlay');
+        overlay.style.opacity = '0';
+        setTimeout(() => overlay.remove(), 800);
+    }, 2000); // 2秒間ロゴを見せてからフェードアウト
+});
+
+// ⏰ 締切設定 (2026年7月20日 23:59:59)
+const deadline = new Date("July 20, 2026 23:59:59").getTime();
+
 function updateCountdown() {
     const now = new Date().getTime();
     const diff = deadline - now;
-    if (diff <= 0) { document.getElementById("timer").innerHTML = "CLOSED"; return; }
-    const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-    const s = Math.floor((diff % (1000 * 60)) / 1000);
-    document.getElementById("timer").innerHTML = `${d}d ${h}h ${m}m ${s}s`;
+    
+    if (diff <= 0) { 
+        document.getElementById("timer").innerHTML = "CLOSED"; 
+        return; 
+    }
+    
+    const d = String(Math.floor(diff / (1000 * 60 * 60 * 24))).padStart(2, '0');
+    const h = String(Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
+    const m = String(Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
+    const s = String(Math.floor((diff % (1000 * 60)) / 1000)).padStart(2, '0');
+    
+    document.getElementById("timer").innerHTML = `${d}<span>d</span> ${h}<span>h</span> ${m}<span>m</span> ${s}<span>s</span>`;
 }
 setInterval(updateCountdown, 1000);
+updateCountdown();
 
 // FAQのアコーディオン
 document.addEventListener('click', (e) => {
     if (e.target.classList.contains('faq-question')) {
-        const btn = e.target; btn.classList.toggle('active');
+        const btn = e.target; 
+        btn.classList.toggle('active');
         const ans = btn.nextElementSibling;
         ans.style.maxHeight = ans.style.maxHeight ? null : ans.scrollHeight + "px";
     }
 });
 
+// 🔮 15チームの異なる幾何学サイバーマークのSVGコード群
+const cyberMarks = [
+    `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12,2 22,22 2,22"/><circle cx="12" cy="14" r="4"/></svg>`, // 魔王
+    `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 12h20L12 2zm0 20l10-10H2l10 10z"/></svg>`, // 堕天
+    `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2v20M2 12h20M5 5l14 14M19 5L5 14"/></svg>`, // 烈火
+    `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M21 3L3 21"/></svg>`, // 奈落
+    `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v12M6 12h12"/></svg>`, // 聖歌
+    `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>`, // 契約
+    `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12,2 22,9 18,22 6,22 2,9"/></svg>`, // 異形
+    `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>`, // 幻惑
+    `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16v16H4z"/><path d="M12 4v16"/></svg>`, // 代償
+    `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zM5 5l14 14"/></svg>`, // 断罪
+    `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="5" y="5" width="14" height="14" transform="rotate(45 12 12)"/></svg>`, // 烙印
+    `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9z"/></svg>`, // 夜魔
+    `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12,2 15,12 22,12 17,18 19,22 12,17 5,22 7,18 2,12 9,12"/></svg>`, // 福音
+    `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="12" cy="12" r="3"/></svg>`, // 呪縛
+    `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 12h20M12 2v20"/><circle cx="12" cy="12" r="8"/></svg>` // 終焉
+];
+
+// 15チームの動的生成
 document.addEventListener('DOMContentLoaded', function() {
-    const emojiData = ["🌦️🚑🔫", "🌎🍛🏛️", "🏣🌒🚲", "🧺⛅🍵", "🐎🎳🐉", "🔧🥱🍿", "🏸🦡🕰️", "🐍🐌⛱️", "💛💈🥨", "😍🤕🦍", "🪬🩹😻", "🦥💗♟️", "✨🦛🍕", "🔰💾🐬", "🍌🖼️🎉"];
-    const teamNames = ["天", "空", "海", "森", "花", "雫", "焔", "凪", "光", "影", "時", "道", "彩", "結", "和"];
-    const rawData = [
-        {n: "ショコラ", id: "chocola0406"}, {n: "ひこよ", id: "6_hikoyo_25"}, {n: "ロペコ", id: "ropecocco"}, {n: "たむお", id: "_tmo_tm"}, {n: "ラー油", id: "2jiha117"},
-        {n: "ヨイチ", id: "MonMonToMonMon"}, {n: "やっほ", id: "papa_ra_zzi"}, {n: "ハムカツ", id: "yam34322"}, {n: "ハロカツ", id: "Tugumogami99"}, {n: "Dina(Alia)", id: "oc_create"},
-        {n: "藤原ノとまと", id: "FJ_to_ma_to_WR"}, {n: "たいやきぃ", id: "taikichitaiyaki"}, {n: "いんしゅ", id: "SAKEKASUSOS"}, {n: "アケチコゴロウ", id: "hcSUZdHq7099054"}, {n: "桜餅柏餅", id: "4GnXnUbfv971835"},
-        {n: "ルルナ", id: "ruruna_o0___"}, {n: "かがみ", id: "kagami_mirror_5"}, {n: "空白", id: "kurokuteuzai"}, {n: "雨影霧藺", id: "Amkg_Mui_"}, {n: "ヒツギ", id: "25ndeya6u"},
-        {n: "る", id: "UKSBHvP8QF52931"}, {n: "ぐろる", id: "guroru_shark"}, {n: "un°", id: "und_hz"}, {n: "あかぎ", id: "akagi4123"}, {n: "雨", id: "sabLeye110"},
-        {n: "troiqu", id: "troiqu_"}, {n: "雨降ソル", id: "Amefurisol0524"}, {n: "しゅりんぷ丸", id: "shrimpmaru_"}, {n: "シュトラス", id: "shutoras1209"}, {n: "熊大陸", id: "kumatairiku2go"},
-        {n: "秋雨（桃）", id: "akisam222"}, {n: "えのき", id: "enoki_kikurage"}, {n: "ﾘﾝ🔔", id: "asaruhi_"}, {n: "ささみ", id: "sasami_okaki"}, {n: "カンヅメ", id: "Kandume_dume"},
-        {n: "コンペイトト", id: "konnpei10usagi3"}, {n: "ドラの風ﾐﾉﾗ", id: "Dorano_25"}, {n: "らいむぎ", id: "lime_gi_"}, {n: "まめ⁵‼️", id: "XHTqMFo6Us42758"}, {n: "えぞれんげ", id: "seiya712"},
-        {n: "マメフ", id: "mamefu01050810"}, {n: "ばんちょ", id: "akasabi_94"}, {n: "けんけん", id: "Kenkendesuuuuu"}, {n: "ラブアンドピースななよ", id: "mio.1786559"}, {n: "へんなやぁーつ", id: "Aogamisama"},
-        {n: "あんこ", id: "zz81609"}, {n: "庭鳥さんぽ", id: "ottosuki35640"}, {n: "八雲L", id: "Lsun8659741"}, {n: "カラ坊", id: "9Zjj8OPEd"}, {n: "あざみ", id: "Azami_azamia"},
-        {n: "夜狐", id: "yako_819"}, {n: "nagi", id: "nagi81585613"}, {n: "チャックニコルトン", id: "anori0_0"}, {n: "小舟", id: "tinyship_o"}, {n: "鳥子", id: "yama_mugi"},
-        {n: "みや", id: "gggggggg_miya"}, {n: "まやとぎ", id: "mytg_s"}, {n: "山田。", id: "yamada_hzbn"}, {n: "雨蛙", id: "Kawazu_1026"}, {n: "羽月", id: "hazuki0109"},
-        {n: "うさ", id: "inaba_UsAsU"}, {n: "タケノコの里", id: "taikoubou06"}, {n: "黒狛", id: "kuraha_50"}, {n: "鋼", id: "hgn__0121"}, {n: "やつか", id: "yatsuka834"},
-        {n: "komayu_M.M", id: "MKomayu321"}, {n: "マジシャンズ列島", id: "3CQe1cadQBWtQ56"}, {n: "あひる", id: "minikuiahirunoko"}, {n: "293", id: "293_wada"}, {n: "Na", id: "Na1945A"},
-        {n: "ごーちゃん", id: "godesuwayo"}, {n: "おたんコ茄子", id: "nako_piyo"}, {n: "ウルフ", id: "Cxb6shCK5f2"}, {n: "maccham", id: "chamti3e"}, {n: "ねこまるさん", id: "haxuzak_V"},
-        {n: "ブルー･スター", id: "aohosi44"}, {n: "三色団子", id: "h08kb74aBz89978"}, {n: "ホッソリ紅", id: "0FmkiBuu23477"}, {n: "ひよこ", id: "oe67353"}, {n: "ミツ", id: "tbhp_mitsu"},
-        {n: "さいとうさとう", id: "saitou_satou"}, {n: "らびぃ", id: "amuamuaimuu"}, {n: "みかど", id: "rnkn_atiti05"}, {n: "ゆきだま", id: "YUK1_DAMA"}
-    ];
+    const teamNames = ["魔王", "堕天", "烈火", "奈落", "聖歌", "契約", "異形", "幻惑", "代償", "断罪", "烙印", "夜魔", "福音", "呪縛", "終焉"];
 
     const teamsDisplay = document.getElementById('teams-display');
-    for (let i = 0; i < 15; i++) {
+    teamNames.forEach((name, idx) => {
         const teamDiv = document.createElement('div');
         teamDiv.className = 'team-card reveal';
-        teamDiv.innerHTML = `<div class="team-title">${teamNames[i]}</div><div class="emoji-slot">${emojiData[i]}</div>`;
-        const list = document.createElement('ul');
-        list.className = 'member-list';
-        rawData.filter((_, idx) => idx % 15 === i).forEach(m => {
-            const li = document.createElement('li');
-            li.innerHTML = `<a href="https://x.com/${m.id}" target="_blank" class="member-link">${m.n}</a>`;
-            list.appendChild(li);
-        });
-        teamDiv.appendChild(list);
+        teamDiv.innerHTML = `
+            <div class="team-mark-container">${cyberMarks[idx]}</div>
+            <div class="team-title">${name}</div>
+            <div class="emoji-slot">□□□</div>
+            <div class="member-placeholder">COMING SOON</div>
+        `;
         teamsDisplay.appendChild(teamDiv);
-    }
+    });
 
+    // スクロール時のフェードイン（IntersectionObserver）
     const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
-    }, { threshold: 0.1 });
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        entries.forEach(entry => { 
+            if (entry.isIntersecting) entry.target.classList.add('active'); 
+        });
+    }, { threshold: 0.05 });
+    
+    setTimeout(() => {
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    }, 100);
 });
 </script>
 </body>
