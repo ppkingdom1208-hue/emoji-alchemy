@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Emoji Alchemy OC Project Vol.2</title>
     <style>
-        /* フォント読み込み：太く存在感のあるモダンゴシック、洗練されたサンセリフ */
-        @import url('https://fonts.googleapis.com/css2?family=Paytone+One&family=Montserrat:wght@400;700;900&family=Noto+Sans+JP:wght@300;500;900&display=swap');
+        /* フォント読み込み */
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Noto+Sans+JP:wght@300;500;900&display=swap');
 
         /* 全体設定 */
         body {
@@ -58,14 +58,14 @@
             animation: headerElementFade 0.8s 1.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
         }
 
-        /* ルイカ風の存在感ある太いタイトル */
+        /* タイトルデザイン：元のMontserratベースに復元 */
         .main-title { 
-            font-family: 'Paytone One', 'Noto Sans JP', sans-serif; font-weight: 900; 
-            font-size: 4.4em; color: #111; margin: 0; line-height: 1.15; word-break: break-word;
+            font-family: 'Montserrat', 'Noto Sans JP', sans-serif; font-weight: 900; 
+            font-size: 3.8em; color: #111; margin: 0; line-height: 1.15; word-break: break-word;
             opacity: 0; transform: translateY(15px);
             animation: headerElementFade 0.8s 1.9s cubic-bezier(0.25, 1, 0.5, 1) forwards;
         }
-        /* 赤い文字のVol.2（完全に分離） */
+        /* 赤い文字のVol.2 */
         .sub-title-vol2 {
             display: block; font-family: 'Montserrat', sans-serif; font-weight: 900;
             font-size: 2.2rem; color: #ff4d4d; margin-top: 10px; letter-spacing: 0.15em;
@@ -84,7 +84,7 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* 🗓 新設：開催スケジュールエリア */
+        /* 🗓 開催スケジュールエリア */
         .schedule-banner {
             text-align: center; margin: 50px auto 90px; max-width: 600px;
             padding: 20px; border-top: 1px solid rgba(0,0,0,0.06); border-bottom: 1px solid rgba(0,0,0,0.06);
@@ -122,7 +122,7 @@
 
         /* チームグリッド */
         .teams-container { 
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; margin-bottom: 100px;
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 25px; margin-bottom: 100px;
         }
         .team-card { 
             background: #ffffff; border: 1px solid #e9ecef; border-bottom: 3px solid #e9ecef; 
@@ -137,7 +137,7 @@
             font-size: 0.6em; color: #ced4da; letter-spacing: 0.1em;
         }
 
-        /* 🔮 新設：各チーム専用のサイバー抽象マーク(CSS描画) */
+        /* 各チーム専用のサイバー抽象マーク */
         .team-mark-container {
             width: 44px; height: 44px; margin: 0 auto 15px; display: flex; justify-content: center; align-items: center;
             position: relative; color: #ff4d4d;
@@ -149,8 +149,21 @@
             font-size: 1.05em; font-family: 'Montserrat', sans-serif; color: #555; background: #f1f3f5;
             padding: 6px 18px; display: inline-block; border-radius: 3px; letter-spacing: 0.4em; font-weight: 700; margin-bottom: 25px;
         }
-        .member-placeholder {
-            font-family: 'Montserrat', sans-serif; font-size: 0.85em; color: #adb5bd; letter-spacing: 0.2em; font-weight: 700;
+        
+        /* メンバー表示用エリア調整 */
+        .member-list {
+            display: flex; flex-direction: column; gap: 8px; font-size: 0.95em; color: #495057; font-weight: 500;
+        }
+        
+        /* メンバー名のデザインスタイル */
+        .member-item {
+            padding: 4px 10px; background: rgba(0,0,0,0.01); border-radius: 4px; word-break: break-all;
+        }
+        .member-link {
+            color: #495057; text-decoration: none; display: block; width: 100%; transition: all 0.2s ease;
+        }
+        .member-link:hover {
+            color: #ff4d4d; text-decoration: underline; background: rgba(255, 77, 77, 0.04); border-radius: 4px;
         }
 
         /* FAQ */
@@ -201,9 +214,7 @@
         .reveal { opacity: 0; transform: translateY(40px); transition: 1.0s cubic-bezier(0.25, 1, 0.5, 1); }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
-        /* ==========================================================================
-           📱 スマートフォン・タブレット用レスポンシブ調整（完全最適化）
-           ========================================================================== */
+        /* スマートフォン・タブレット用レスポンシブ */
         @media (max-width: 768px) {
             .wrapper { padding: 40px 20px 80px; }
             .main-header { margin-bottom: 40px; }
@@ -251,7 +262,7 @@
         <div class="producer-name">Produce by nico oji</div>
     </header>
 
-    <!-- 新設：開催日スケジュール表記 -->
+    <!-- 開催日スケジュール表記 -->
     <div class="schedule-banner">
         <div class="schedule-label">PROJECT LIVE DATES</div>
         <div class="schedule-dates">
@@ -271,12 +282,12 @@
             ランダムに選ばれた「絵文字」という名の素材を元に、<br>
             創造主たちが全く新しい「オリジナルキャラクター」を錬成する企画の第二章です。<br>
             <br>
-            今宵、地獄の悪魔が仕掛ける運命のシンボルから、一体どのような物語が産声を上げるのか。<br>
+            今宵、地獄の悪魔が仕掛ける運命 of シンボルから、一体どのような物語が産声を上げるのか。<br>
             洗練された狂気と至高のクリエイティビティが、再びここに集います。
         </p>
     </section>
 
-    <!-- エントリーチーム（15要素） -->
+    <!-- エントリーチーム -->
     <section class="section-card reveal" style="background: transparent; box-shadow: none; padding: 0; border: none;">
         <h2 class="section-title" style="margin-bottom: 40px;">ENTRY TEAM</h2>
         <div id="teams-display" class="teams-container"></div>
@@ -318,7 +329,7 @@
     <!-- 提出エリア -->
     <section class="submit-section reveal">
         <div class="deadline-alert">SUBMISSION DEADLINE</div>
-        <div class="deadline-date">作品提出締切：7月20日(月) 23:59</div>
+        <div class="deadline-date">作品提出締切：7月22日(水) 23:59</div>
         <div id="timer" class="countdown-timer">00<span>d</span> 00<span>h</span> 00<span>m</span> 00<span>s</span></div>
         <p class="about-text" style="color: #a0aec0; margin-bottom:40px; font-size: 0.95em;">
             本戦開催日：7/24, 7/25, 7/26<br>
@@ -329,32 +340,26 @@
 </div>
 
 <script>
-// 🎬 オープニングスクリーンの非表示化制御（アニメーション終了後）
+// オープニングスクリーンの非表示化制御
 window.addEventListener('load', () => {
     setTimeout(() => {
         const overlay = document.getElementById('opening-overlay');
         overlay.style.opacity = '0';
         setTimeout(() => overlay.remove(), 800);
-    }, 2000); // 2秒間ロゴを見せてからフェードアウト
+    }, 2000);
 });
 
-// ⏰ 締切設定 (2026年7月20日 23:59:59)
-const deadline = new Date("July 20, 2026 23:59:59").getTime();
+// 締切設定 (2026年7月22日 23:59:59) に修正
+const deadline = new Date("July 22, 2026 23:59:59").getTime();
 
 function updateCountdown() {
     const now = new Date().getTime();
     const diff = deadline - now;
-    
-    if (diff <= 0) { 
-        document.getElementById("timer").innerHTML = "CLOSED"; 
-        return; 
-    }
-    
+    if (diff <= 0) { document.getElementById("timer").innerHTML = "CLOSED"; return; }
     const d = String(Math.floor(diff / (1000 * 60 * 60 * 24))).padStart(2, '0');
     const h = String(Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
     const m = String(Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
     const s = String(Math.floor((diff % (1000 * 60)) / 1000)).padStart(2, '0');
-    
     document.getElementById("timer").innerHTML = `${d}<span>d</span> ${h}<span>h</span> ${m}<span>m</span> ${s}<span>s</span>`;
 }
 setInterval(updateCountdown, 1000);
@@ -370,7 +375,7 @@ document.addEventListener('click', (e) => {
     }
 });
 
-// 🔮 15チームの異なる幾何学サイバーマークのSVGコード群
+// 15チームの幾何学サイバーマークのSVGコード群
 const cyberMarks = [
     `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12,2 22,22 2,22"/><circle cx="12" cy="14" r="4"/></svg>`, // 魔王
     `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 12h20L12 2zm0 20l10-10H2l10 10z"/></svg>`, // 堕天
@@ -389,33 +394,67 @@ const cyberMarks = [
     `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 12h20M12 2v20"/><circle cx="12" cy="12" r="8"/></svg>` // 終焉
 ];
 
-// 15チームの動的生成
-document.addEventListener('DOMContentLoaded', function() {
-    const teamNames = ["魔王", "堕天", "烈火", "奈落", "聖歌", "契約", "異形", "幻惑", "代償", "断罪", "烙印", "夜魔", "福音", "呪縛", "終焉"];
+// 👥 修正・確定版データ（40削除 / komayu変更反映）
+const teamData = [
+    { name: "魔王", members: ["夜狐@yako_819", "ヨイチ@MonMonToMonMon", "雨影霧藺@Amkg_mui_", "たいやきぃ@taikichitaiyaki", "雨☔️@sabLeye110"] },
+    { name: "堕天", members: ["ささみ@sasami_okaki", "イモコン@imokon741", "あんこ@zz81609", "あひる@Okashi7ahiru", "ロペコ@ropecocco"] },
+    { name: "烈火", members: ["とむ＠2929usabi", "雨蛙＠Kawazu_1026", "sb@si_twu2", "やい@yai__0", "シュトラス1209@shutoras1209"] },
+    { name: "奈落", members: ["ひこよ@o_o_hikoyo_o_o", "まあや卿@maya_kurage", "みや@gggggggg_miya", "ホッソリ紅@kurenaidaaa8888", "はちみつき@Honeytree_0427"] },
+    { name: "聖歌", members: ["ルルナ@ruruna_o0____", "ねむ汰@12Ocm_51", "つながみ@tngm_Illust", "藤原ﾉとまと@FJ_to_ma_to_WR", "空白@kurokuteuzai"] },
+    { name: "契約", members: ["ハムカツ@yam34322", "えのき＠enoki_kikurage", "る@UKSBHvP8QF52931", "しゅりんぷ丸@shrimpmaru_", "チャックニコルトン@anori0_0"] },
+    { name: "異形", members: ["雨降ソル@Amefurisol0524", "コンペイトト@konnpei10usagi3", "たむお@_tmo_tm", "紫鶴@shiduru_00", "ぐろる@guroru_shark"] },
+    { name: "幻惑", members: ["まやとぎ@mytgt_s", "Φ Φ@G1UmIxcgtV12924", "熊大陸@kumatairiku2go", "鳥子@yama_mugi", "庭鳥さんぽ@ottosuki356"] },
+    { name: "代償", members: ["komayu@komayu_", "ねこまるさん@haxuzak_V", "さいとうさとう@saitou_satou", "ブルー･スター@aohosi44"] },
+    { name: "断罪", members: ["ハロカツ@Tugumogami99", "まめふ@mamefu01050810", "山田。@yamada_hzbn", "カラ坊@9Zjj8OPEd", "らいむぎ@lime_gi_"] },
+    { name: "烙印", members: ["吁@ono_65tg", "いんしゅ@SAKEKASUSOS", "ゆきだま@YUK1_DAMA", "カンヅメ@Kandume_dume", "秋雨（桃）@akisam222"] },
+    { name: "夜魔", members: ["金木星@INUNIHAJIMARI", "さく@saku_OC", "おたんこ茄子@nako_piyo", "troiqu@troiqu_"] },
+    { name: "福音", members: ["鮭いくら。@sakeikura1987", "シュバルツバルト@schwarz621007", "アケチコゴロウ@hcSUZdHq7099054", '""@srt2umm'] },
+    { name: "呪縛", members: ["あかぎ@akagi4123", "三色団子@h08kb74aBz89978", "うさ@inaba_UsAsU", "ばんちょ@akasabi_94"] },
+    { name: "終焉", members: ["nagi@nagi81585613", "山葵@Wsb_20q", "ドラの風ﾐﾉﾗ@Dorano_25", "松ミケル@Mikkelsan0711"] }
+];
 
+// チームカードの動的生成
+document.addEventListener('DOMContentLoaded', function() {
     const teamsDisplay = document.getElementById('teams-display');
-    teamNames.forEach((name, idx) => {
+    
+    teamData.forEach((team, idx) => {
         const teamDiv = document.createElement('div');
         teamDiv.className = 'team-card reveal';
+        
+        const memberHTML = team.members.map(m => {
+            let str = m.trim().replace(/＠/g, '@');
+            const match = str.match(/^(.*?)\s*@([A-Za-z0-9_]+)\s*$/);
+            
+            if (match) {
+                const dispName = match[1].trim();
+                const xId = match[2].trim();
+                return `<div class="member-item"><a href="https://x.com/${xId}" target="_blank" class="member-link">${dispName}</a></div>`;
+            } else {
+                const simpleSplit = str.split('@');
+                if (simpleSplit.length > 1 && simpleSplit[1].trim()) {
+                    return `<div class="member-item"><a href="https://x.com/${simpleSplit[1].trim()}" target="_blank" class="member-link">${simpleSplit[0].trim()}</a></div>`;
+                }
+                return `<div class="member-item">${str}</div>`;
+            }
+        }).join('');
+        
         teamDiv.innerHTML = `
             <div class="team-mark-container">${cyberMarks[idx]}</div>
-            <div class="team-title">${name}</div>
+            <div class="team-title">${team.name}</div>
             <div class="emoji-slot">□□□</div>
-            <div class="member-placeholder">COMING SOON</div>
+            <div class="member-list">
+                ${memberHTML}
+            </div>
         `;
         teamsDisplay.appendChild(teamDiv);
     });
 
-    // スクロール時のフェードイン（IntersectionObserver）
+    // スクロールフェードイン制御
     const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => { 
-            if (entry.isIntersecting) entry.target.classList.add('active'); 
-        });
+        entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
     }, { threshold: 0.05 });
     
-    setTimeout(() => {
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-    }, 100);
+    setTimeout(() => { document.querySelectorAll('.reveal').forEach(el => observer.observe(el)); }, 100);
 });
 </script>
 </body>
