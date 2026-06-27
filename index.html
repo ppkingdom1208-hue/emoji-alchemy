@@ -58,7 +58,7 @@
             animation: headerElementFade 0.8s 1.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
         }
 
-        /* タイトルデザイン：元のMontserratベースに復元 */
+        /* タイトルデザイン */
         .main-title { 
             font-family: 'Montserrat', 'Noto Sans JP', sans-serif; font-weight: 900; 
             font-size: 3.8em; color: #111; margin: 0; line-height: 1.15; word-break: break-word;
@@ -146,8 +146,8 @@
 
         .team-title { font-size: 1.8em; font-weight: 900; color: #111; margin-bottom: 12px; letter-spacing: 0.1em; }
         .emoji-slot { 
-            font-size: 1.05em; font-family: 'Montserrat', sans-serif; color: #555; background: #f1f3f5;
-            padding: 6px 18px; display: inline-block; border-radius: 3px; letter-spacing: 0.4em; font-weight: 700; margin-bottom: 25px;
+            font-size: 1.4em; color: #1a1d20; background: #f1f3f5;
+            padding: 6px 16px; display: inline-block; border-radius: 4px; letter-spacing: 0.15em; margin-bottom: 25px;
         }
         
         /* メンバー表示用エリア調整 */
@@ -349,7 +349,7 @@ window.addEventListener('load', () => {
     }, 2000);
 });
 
-// 締切設定 (2026年7月22日 23:59:59) に修正
+// 締切設定 (2026年7月22日 23:59:59)
 const deadline = new Date("July 22, 2026 23:59:59").getTime();
 
 function updateCountdown() {
@@ -394,23 +394,23 @@ const cyberMarks = [
     `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 12h20M12 2v20"/><circle cx="12" cy="12" r="8"/></svg>` // 終焉
 ];
 
-// 👥 修正・確定版データ（40削除 / komayu変更反映）
+// 👥 修正・確定版データ（各チームに対応する絵文字を追加）
 const teamData = [
-    { name: "魔王", members: ["夜狐@yako_819", "ヨイチ@MonMonToMonMon", "雨影霧藺@Amkg_mui_", "たいやきぃ@taikichitaiyaki", "雨☔️@sabLeye110"] },
-    { name: "堕天", members: ["ささみ@sasami_okaki", "イモコン@imokon741", "あんこ@zz81609", "あひる@Okashi7ahiru", "ロペコ@ropecocco"] },
-    { name: "烈火", members: ["とむ＠2929usabi", "雨蛙＠Kawazu_1026", "sb@si_twu2", "やい@yai__0", "シュトラス1209@shutoras1209"] },
-    { name: "奈落", members: ["ひこよ@o_o_hikoyo_o_o", "まあや卿@maya_kurage", "みや@gggggggg_miya", "ホッソリ紅@kurenaidaaa8888", "はちみつき@Honeytree_0427"] },
-    { name: "聖歌", members: ["ルルナ@ruruna_o0____", "ねむ汰@12Ocm_51", "つながみ@tngm_Illust", "藤原ﾉとまと@FJ_to_ma_to_WR", "空白@kurokuteuzai"] },
-    { name: "契約", members: ["ハムカツ@yam34322", "えのき＠enoki_kikurage", "る@UKSBHvP8QF52931", "しゅりんぷ丸@shrimpmaru_", "チャックニコルトン@anori0_0"] },
-    { name: "異形", members: ["雨降ソル@Amefurisol0524", "コンペイトト@konnpei10usagi3", "たむお@_tmo_tm", "紫鶴@shiduru_00", "ぐろる@guroru_shark"] },
-    { name: "幻惑", members: ["まやとぎ@mytgt_s", "Φ Φ@G1UmIxcgtV12924", "熊大陸@kumatairiku2go", "鳥子@yama_mugi", "庭鳥さんぽ@ottosuki356"] },
-    { name: "代償", members: ["komayu@komayu_", "ねこまるさん@haxuzak_V", "さいとうさとう@saitou_satou", "ブルー･スター@aohosi44"] },
-    { name: "断罪", members: ["ハロカツ@Tugumogami99", "まめふ@mamefu01050810", "山田。@yamada_hzbn", "カラ坊@9Zjj8OPEd", "らいむぎ@lime_gi_"] },
-    { name: "烙印", members: ["吁@ono_65tg", "いんしゅ@SAKEKASUSOS", "ゆきだま@YUK1_DAMA", "カンヅメ@Kandume_dume", "秋雨（桃）@akisam222"] },
-    { name: "夜魔", members: ["金木星@INUNIHAJIMARI", "さく@saku_OC", "おたんこ茄子@nako_piyo", "troiqu@troiqu_"] },
-    { name: "福音", members: ["鮭いくら。@sakeikura1987", "シュバルツバルト@schwarz621007", "アケチコゴロウ@hcSUZdHq7099054", '""@srt2umm'] },
-    { name: "呪縛", members: ["あかぎ@akagi4123", "三色団子@h08kb74aBz89978", "うさ@inaba_UsAsU", "ばんちょ@akasabi_94"] },
-    { name: "終焉", members: ["nagi@nagi81585613", "山葵@Wsb_20q", "ドラの風ﾐﾉﾗ@Dorano_25", "松ミケル@Mikkelsan0711"] }
+    { name: "魔王", emojis: "🍀🌠☃️", members: ["夜狐@yako_819", "ヨイチ@MonMonToMonMon", "雨影霧藺@Amkg_mui_", "たいやきぃ@taikichitaiyaki", "雨☔️@sabLeye110"] },
+    { name: "堕天", emojis: "🐗🎤💫", members: ["ささみ@sasami_okaki", "イモコン@imokon741", "あんこ@zz81609", "あひる@Okashi7ahiru", "ロペコ@ropecocco"] },
+    { name: "烈火", emojis: "🧰🥾🤯", members: ["とむ＠2929usabi", "雨蛙＠Kawazu_1026", "sb@si_twu2", "やい@yai__0", "シュトラス1209@shutoras1209"] },
+    { name: "奈落", emojis: "🛀🌵🗿", members: ["ひこよ@o_o_hikoyo_o_o", "まあや卿@maya_kurage", "みや@gggggggg_miya", "ホッソリ紅@kurenaidaaa8888", "はちみつき@Honeytree_0427"] },
+    { name: "聖歌", emojis: "📏🔔🐢", members: ["ルルナ@ruruna_o0____", "ねむ汰@12Ocm_51", "つながみ@tngm_Illust", "藤原ﾉとまと@FJ_to_ma_to_WR", "空白@kurokuteuzai"] },
+    { name: "契約", emojis: "🤸‍♂️🌃🚓", members: ["ハムカツ@yam34322", "えのき＠enoki_kikurage", "る@UKSBHvP8QF52931", "しゅりんぷ丸@shrimpmaru_", "チャックニコルトン@anori0_0"] },
+    { name: "異形", emojis: "🍓🔪📛", members: ["雨降ソル@Amefurisol0524", "コンペイトト@konnpei10usagi3", "たむお@_tmo_tm", "紫鶴@shiduru_00", "ぐろる@guroru_shark"] },
+    { name: "幻惑", emojis: "🎹💎🐸", members: ["まやとぎ@mytgt_s", "Φ Φ@G1UmIxcgtV12924", "熊大陸@kumatairiku2go", "鳥子@yama_mugi", "庭鳥さんぽ@ottosuki356"] },
+    { name: "代償", emojis: "🌞🍶🚣‍♂️", members: ["komayu@komayu_", "ねこまるさん@haxuzak_V", "さいとうさとう@saitou_satou", "ブルー･スター@aohosi44"] },
+    { name: "断罪", emojis: "🤰🏫⚰️", members: ["ハロカツ@Tugumogami99", "まめふ@mamefu01050810", "山田。@yamada_hzbn", "カラ坊@9Zjj8OPEd", "らいむぎ@lime_gi_"] },
+    { name: "烙印", emojis: "☕🏕👻", members: ["吁@ono_65tg", "いんしゅ@SAKEKASUSOS", "ゆきだま@YUK1_DAMA", "カンヅメ@Kandume_dume", "秋雨（桃）@akisam222"] },
+    { name: "夜魔", emojis: "🍷🎺🤖", members: ["金木星@INUNIHAJIMARI", "さく@saku_OC", "おたんこ茄子@nako_piyo", "troiqu@troiqu_"] },
+    { name: "福音", emojis: "👘🍰🎻", members: ["鮭いくら。@sakeikura1987", "シュバルツバルト@schwarz621007", "アケチコゴロウ@hcSUZdHq7099054", '""@srt2umm'] },
+    { name: "呪縛", emojis: "🐙❄️🎢", members: ["あかぎ@akagi4123", "三色団子@h08kb74aBz89978", "うさ@inaba_UsAsU", "ばんちょ@akasabi_94"] },
+    { name: "終焉", emojis: "🧤👰🐝", members: ["nagi@nagi81585613", "山葵@Wsb_20q", "ドラの風ﾐﾉﾗ@Dorano_25", "松ミケル@Mikkelsan0711"] }
 ];
 
 // チームカードの動的生成
@@ -441,7 +441,7 @@ document.addEventListener('DOMContentLoaded', function() {
         teamDiv.innerHTML = `
             <div class="team-mark-container">${cyberMarks[idx]}</div>
             <div class="team-title">${team.name}</div>
-            <div class="emoji-slot">□□□</div>
+            <div class="emoji-slot">${team.emojis}</div>
             <div class="member-list">
                 ${memberHTML}
             </div>
