@@ -120,9 +120,40 @@
         }
         .about-text { line-height: 2.2; font-size: 1.05em; color: #495057; font-weight: 300; }
 
+        /* 日程見出しスタイル */
+        .day-heading {
+            font-family: 'Montserrat', 'Noto Sans JP', sans-serif;
+            font-weight: 900;
+            font-size: 1.5em;
+            color: #ff4d4d;
+            margin: 40px 0 20px;
+            letter-spacing: 0.1em;
+            display: flex;
+            align-items: flex-end; /* 日付のベースラインと注釈の下を揃える */
+            flex-wrap: wrap; /* 横幅が狭い時にきれいに折り返すため */
+            gap: 15px;
+        }
+        .day-heading::before {
+            content: "◆";
+            margin-right: -5px; /* gapと調整して間隔を一定に */
+            font-size: 0.8em;
+            color: #00d2ff;
+            line-height: 1.1; /* ◆の上下位置調整 */
+        }
+        /* 日記横の注釈テキスト */
+        .day-heading-notice {
+            font-family: "Noto Sans JP", sans-serif;
+            font-size: 0.55em;
+            font-weight: 500;
+            color: #8a929a;
+            letter-spacing: 0.05em;
+            line-height: 1.5; /* 下揃えの際に見栄え良くするための高さ微調整 */
+            margin-bottom: 1px; /* 微妙な垂直位置の微調整用 */
+        }
+
         /* チームグリッド */
         .teams-container { 
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 25px; margin-bottom: 100px;
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 25px; margin-bottom: 60px;
         }
         .team-card { 
             background: #ffffff; border: 1px solid #e9ecef; border-bottom: 3px solid #e9ecef; 
@@ -230,7 +261,10 @@
             .section-title { font-size: 1.5em; margin-bottom: 20px; }
             .about-text { font-size: 0.95em; line-height: 2.0; }
 
-            .teams-container { grid-template-columns: 1fr; gap: 15px; margin-bottom: 60px; }
+            .day-heading { font-size: 1.2em; margin: 30px 0 15px; gap: 8px; align-items: flex-end; }
+            .day-heading-notice { font-size: 0.6em; }
+
+            .teams-container { grid-template-columns: 1fr; gap: 15px; margin-bottom: 40px; }
             .team-card { padding: 35px 20px 30px; }
             .team-title { font-size: 1.5em; }
 
@@ -266,11 +300,11 @@
     <div class="schedule-banner">
         <div class="schedule-label">PROJECT LIVE DATES</div>
         <div class="schedule-dates">
-            7.24<span class="day-week">[Fri]</span>
+            7.24<span class="day-week">（金）</span>
             <span class="separator">/</span>
-            7.25<span class="day-week">[Sat]</span>
+            7.25<span class="day-week">（土）</span>
             <span class="separator">/</span>
-            7.26<span class="day-week">[Sun]</span>
+            7.26<span class="day-week">（日）</span>
         </div>
     </div>
 
@@ -289,8 +323,26 @@
 
     <!-- エントリーチーム -->
     <section class="section-card reveal" style="background: transparent; box-shadow: none; padding: 0; border: none;">
-        <h2 class="section-title" style="margin-bottom: 40px;">ENTRY TEAM</h2>
-        <div id="teams-display" class="teams-container"></div>
+        <h2 class="section-title" style="margin-bottom: 20px;">ENTRY TEAM</h2>
+        
+        <!-- 各日程ごとのチームコンテナ -->
+        <div class="day-heading reveal">
+            Day 1 : 7月24日（金）
+            <span class="day-heading-notice">※チームの発表順はランダムです</span>
+        </div>
+        <div id="teams-display-day1" class="teams-container"></div>
+
+        <div class="day-heading reveal">
+            Day 2 : 7月25日（土）
+            <span class="day-heading-notice">※チームの発表順はランダムです</span>
+        </div>
+        <div id="teams-display-day2" class="teams-container"></div>
+
+        <div class="day-heading reveal">
+            Day 3 : 7月26日（日）
+            <span class="day-heading-notice">※チームの発表順はランダムです</span>
+        </div>
+        <div id="teams-display-day3" class="teams-container"></div>
     </section>
 
     <!-- FAQ -->
@@ -329,7 +381,7 @@
     <!-- 提出エリア -->
     <section class="submit-section reveal">
         <div class="deadline-alert">SUBMISSION DEADLINE</div>
-        <div class="deadline-date">作品提出締切：7月22日(水) 23:59</div>
+        <div class="deadline-date">作品提出締切：7月22日（水） 23:59</div>
         <div id="timer" class="countdown-timer">00<span>d</span> 00<span>h</span> 00<span>m</span> 00<span>s</span></div>
         <p class="about-text" style="color: #a0aec0; margin-bottom:40px; font-size: 0.95em;">
             本戦開催日：7/24, 7/25, 7/26<br>
@@ -375,49 +427,53 @@ document.addEventListener('click', (e) => {
     }
 });
 
-// 15チームの幾何学サイバーマークのSVGコード群
+// 15チームの幾何学サイバーマークのSVGコード群（元のチームインデックスに対応）
 const cyberMarks = [
-    `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12,2 22,22 2,22"/><circle cx="12" cy="14" r="4"/></svg>`, // 魔王
-    `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 12h20L12 2zm0 20l10-10H2l10 10z"/></svg>`, // 堕天
-    `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2v20M2 12h20M5 5l14 14M19 5L5 14"/></svg>`, // 烈火
-    `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M21 3L3 21"/></svg>`, // 奈落
-    `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v12M6 12h12"/></svg>`, // 聖歌
-    `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>`, // 契約
-    `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12,2 22,9 18,22 6,22 2,9"/></svg>`, // 異形
-    `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>`, // 幻惑
-    `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16v16H4z"/><path d="M12 4v16"/></svg>`, // 代償
-    `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zM5 5l14 14"/></svg>`, // 断罪
-    `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="5" y="5" width="14" height="14" transform="rotate(45 12 12)"/></svg>`, // 烙印
-    `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9z"/></svg>`, // 夜魔
-    `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12,2 15,12 22,12 17,18 19,22 12,17 5,22 7,18 2,12 9,12"/></svg>`, // 福音
-    `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="12" cy="12" r="3"/></svg>`, // 呪縛
-    `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 12h20M12 2v20"/><circle cx="12" cy="12" r="8"/></svg>` // 終焉
+    `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12,2 22,22 2,22"/><circle cx="12" cy="14" r="4"/></svg>`, // 魔王 (idx: 0)
+    `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 12h20L12 2zm0 20l10-10H2l10 10z"/></svg>`, // 堕天 (idx: 1)
+    `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2v20M2 12h20M5 5l14 14M19 5L5 14"/></svg>`, // 烈火 (idx: 2)
+    `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M21 3L3 21"/></svg>`, // 奈落 (idx: 3)
+    `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v12M6 12h12"/></svg>`, // 聖歌 (idx: 4)
+    `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>`, // 契約 (idx: 5)
+    `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12,2 22,9 18,22 6,22 2,9"/></svg>`, // 異形 (idx: 6)
+    `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>`, // 幻惑 (idx: 7)
+    `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16v16H4z"/><path d="M12 4v16"/></svg>`, // 代償 (idx: 8)
+    `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zM5 5l14 14"/></svg>`, // 断罪 (idx: 9)
+    `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="5" y="5" width="14" height="14" transform="rotate(45 12 12)"/></svg>`, // 烙印 (idx: 10)
+    `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9z"/></svg>`, // 夜魔 (idx: 11)
+    `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12,2 15,12 22,12 17,18 19,22 12,17 5,22 7,18 2,12 9,12"/></svg>`, // 福音 (idx: 12)
+    `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="12" cy="12" r="3"/></svg>`, // 呪縛 (idx: 13)
+    `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 12h20M12 2v20"/><circle cx="12" cy="12" r="8"/></svg>` // 終焉 (idx: 14)
 ];
 
-// 👥 修正・確定版データ（各チームに対応する絵文字を追加）
+// 👥 各チームに対応する日程情報(day: 1〜3)を付与した確定版データ
 const teamData = [
-    { name: "魔王", emojis: "🍀🌠☃️", members: ["夜狐@yako_819", "ヨイチ@MonMonToMonMon", "雨影霧藺@Amkg_mui_", "たいやきぃ@taikichitaiyaki", "雨☔️@sabLeye110"] },
-    { name: "堕天", emojis: "🐗🎤💫", members: ["ささみ@sasami_okaki", "イモコン@imokon741", "あんこ@zz81609", "あひる@Okashi7ahiru", "ロペコ@ropecocco"] },
-    { name: "烈火", emojis: "🧰🥾🤯", members: ["とむ＠2929usabi", "雨蛙＠Kawazu_1026", "sb@si_twu2", "やい@yai__0", "シュトラス1209@shutoras1209"] },
-    { name: "奈落", emojis: "🛀🌵🗿", members: ["ひこよ@o_o_hikoyo_o_o", "まあや卿@maya_kurage", "みや@gggggggg_miya", "ホッソリ紅@kurenaidaaa8888", "はちみつき@Honeytree_0427"] },
-    { name: "聖歌", emojis: "📏🔔🐢", members: ["ルルナ@ruruna_o0____", "ねむ汰@12Ocm_51", "つながみ@tngm_Illust", "藤原ﾉとまと@FJ_to_ma_to_WR", "空白@kurokuteuzai"] },
-    { name: "契約", emojis: "🤸‍♂️🌃🚓", members: ["ハムカツ@yam34322", "えのき＠enoki_kikurage", "る@UKSBHvP8QF52931", "しゅりんぷ丸@shrimpmaru_", "チャックニコルトン@anori0_0"] },
-    { name: "異形", emojis: "🍓🔪📛", members: ["雨降ソル@Amefurisol0524", "コンペイトト@konnpei10usagi3", "たむお@_tmo_tm", "紫鶴@shiduru_00", "ぐろる@guroru_shark"] },
-    { name: "幻惑", emojis: "🎹💎🐸", members: ["まやとぎ@mytgt_s", "Φ Φ@G1UmIxcgtV12924", "熊大陸@kumatairiku2go", "鳥子@yama_mugi", "庭鳥さんぽ@ottosuki356"] },
-    { name: "代償", emojis: "🌞🍶🚣‍♂️", members: ["komayu@MKomayu321", "ねこまるさん@haxuzak_V", "さいとうさとう@saitou_satou", "ブルー･スター@aohosi44"] },
-    { name: "断罪", emojis: "🤰🏫⚰️", members: ["ハロカツ@Tugumogami99", "まめふ@mamefu01050810", "山田。@yamada_hzbn", "カラ坊@9Zjj8OPEd", "らいむぎ@lime_gi_"] },
-    { name: "烙印", emojis: "☕🏕👻", members: ["吁@ono_65tg", "いんしゅ@SAKEKASUSOS", "ゆきだま@YUK1_DAMA", "カンヅメ@Kandume_dume", "秋雨（桃）@akisam222"] },
-    { name: "夜魔", emojis: "🍷🎺🤖", members: ["金木星@INUNIHAJIMARI", "さく@saku_OC", "おたんこ茄子@nako_piyo", "troiqu@troiqu_"] },
-    { name: "福音", emojis: "👘🍰🎻", members: ["鮭いくら。@sakeikura1987", "シュバルツバルト@schwarz621007", "アケチコゴロウ@hcSUZdHq7099054", '""@srt2umm'] },
-    { name: "呪縛", emojis: "🐙❄️🎢", members: ["あかぎ@akagi4123", "三色団子@h08kb74aBz89978", "うさ@inaba_UsAsU", "ばんちょ@akasabi_94"] },
-    { name: "終焉", emojis: "🧤👰🐝", members: ["nagi@nagi81585613", "山葵@Wsb_20q", "ドラの風ﾐﾉﾗ@Dorano_25", "松ミケル@Mikkelsan0711"] }
+    { name: "魔王", emojis: "🍀🌠☃️", day: 1, originalIdx: 0, members: ["夜狐@yako_819", "ヨイチ@MonMonToMonMon", "雨影霧藺@Amkg_mui_", "たいやきぃ@taikichitaiyaki", "雨☔️@sabLeye110"] },
+    { name: "堕天", emojis: "🐗🎤💫", day: 2, originalIdx: 1, members: ["ささみ@sasami_okaki", "イモコン@imokon741", "あんこ@zz81609", "あひる@Okashi7ahiru", "ロペコ@ropecocco"] },
+    { name: "烈火", emojis: "🧰🥾🤯", day: 1, originalIdx: 2, members: ["とむ＠2929usabi", "雨蛙＠Kawazu_1026", "sb@si_twu2", "やい@yai__0", "シュトラス1209@shutoras1209"] },
+    { name: "奈落", emojis: "🛀🌵🗿", day: 2, originalIdx: 3, members: ["ひこよ@o_o_hikoyo_o_o", "まあや卿@maya_kurage", "みや@gggggggg_miya", "ホッソリ紅@kurenaidaaa8888", "はちみつき@Honeytree_0427"] },
+    { name: "聖歌", emojis: "📏🔔🐢", day: 3, originalIdx: 4, members: ["ルルナ@ruruna_o0____", "ねむ汰@12Ocm_51", "つながみ@tngm_Illust", "藤原ﾉとまと@FJ_to_ma_to_WR", "空白@kurokuteuzai"] },
+    { name: "契約", emojis: "🤸‍♂️🌃🚓", day: 1, originalIdx: 5, members: ["ハムカツ@yam34322", "えのき＠enoki_kikurage", "る@UKSBHvP8QF52931", "しゅりんぷ丸@shrimpmaru_", "チャックニコルトン@anori0_0"] },
+    { name: "異形", emojis: "🍓🔪📛", day: 2, originalIdx: 6, members: ["雨降ソル@Amefurisol0524", "コンペイトト@konnpei10usagi3", "たむお@_tmo_tm", "紫鶴@shiduru_00", "ぐろる@guroru_shark"] },
+    { name: "幻惑", emojis: "🎹💎🐸", day: 3, originalIdx: 7, members: ["まやとぎ@mytgt_s", "Φ Φ@G1UmIxcgtV12924", "熊大陸@kumatairiku2go", "鳥子@yama_mugi", "庭鳥さんぽ@ottosuki356"] },
+    { name: "代償", emojis: "🌞🍶🚣‍♂️", day: 1, originalIdx: 8, members: ["komayu@MKomayu321", "ねこまるさん@haxuzak_V", "さいとうさとう@saitou_satou", "ブルー･スター@aohosi44"] },
+    { name: "断罪", emojis: "🤰🏫⚰️", day: 3, originalIdx: 9, members: ["ハロカツ@Tugumogami99", "まめふ@mamefu01050810", "山田。@yamada_hzbn", "カラ坊@9Zjj8OPEd", "らいむぎ@lime_gi_"] },
+    { name: "烙印", emojis: "☕🏕👻", day: 3, originalIdx: 10, members: ["吁@ono_65tg", "いんしゅ@SAKEKASUSOS", "ゆきだま@YUK1_DAMA", "カンヅメ@Kandume_dume", "秋雨（桃）@akisam222"] },
+    { name: "夜魔", emojis: "🍷🎺🤖", day: 1, originalIdx: 11, members: ["金木星@INUNIHAJIMARI", "さく@saku_OC", "おたんこ茄子@nako_piyo", "troiqu@troiqu_"] },
+    { name: "福音", emojis: "👘🍰🎻", day: 2, originalIdx: 12, members: ["鮭いくら。@sakeikura1987", "シュバルツバルト@schwarz621007", "アケチコゴロウ@hcSUZdHq7099054", '""@srt2umm'] },
+    { name: "呪縛", emojis: "🐙❄️🎢", day: 2, originalIdx: 13, members: ["あかぎ@akagi4123", "三色団子@h08kb74aBz89978", "うさ@inaba_UsAsU", "ばんちょ@akasabi_94"] },
+    { name: "終焉", emojis: "🧤👰🐝", day: 3, originalIdx: 14, members: ["nagi@nagi81585613", "山葵@Wsb_20q", "ドラの風ﾐﾉﾗ@Dorano_25", "松ミケル@Mikkelsan0711"] }
 ];
 
-// チームカードの動的生成
+// 各日にちのコンテナへチームカードを動的に振り分け生成
 document.addEventListener('DOMContentLoaded', function() {
-    const teamsDisplay = document.getElementById('teams-display');
     
-    teamData.forEach((team, idx) => {
+    teamData.forEach((team) => {
+        // 日程に対応するコンテナIDを判定
+        const containerId = `teams-display-day${team.day}`;
+        const targetContainer = document.getElementById(containerId);
+        if (!targetContainer) return;
+
         const teamDiv = document.createElement('div');
         teamDiv.className = 'team-card reveal';
         
@@ -438,15 +494,16 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }).join('');
         
+        // originalIdxをもとに、正しいサイバーマークSVGを適用
         teamDiv.innerHTML = `
-            <div class="team-mark-container">${cyberMarks[idx]}</div>
+            <div class="team-mark-container">${cyberMarks[team.originalIdx]}</div>
             <div class="team-title">${team.name}</div>
             <div class="emoji-slot">${team.emojis}</div>
             <div class="member-list">
                 ${memberHTML}
             </div>
         `;
-        teamsDisplay.appendChild(teamDiv);
+        targetContainer.appendChild(teamDiv);
     });
 
     // スクロールフェードイン制御
